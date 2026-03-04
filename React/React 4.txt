@@ -1,0 +1,532 @@
+
+PROPS:
+======
+-> props are nothing but properties
+-> used to transfer the data from parent component to the child component
+
+	
+		Parent --------------->  Child
+
+
+Ex :
+---
+
+````````````Parent sending data - after importing
+
+
+  	<MyComponent   name='Reactjs'   age='25'   />
+
+
+`````````````Child receiving data from parent  
+
+
+ 	<h1>my name is : {drops.name} </h1>
+        <h1>my age is : {drops.age}</h1>
+
+Output:
+
+my name is : Reactjs
+my age is : 25
+
+Notes:
+------
+
+-> The values passing from the parent has to enclose either with 'String format' ,  ' 'or close the value with { }.
+
+-> Only premitives we can use either ' ' or { } 
+
+-> For Non Premitive and for function type values alwasy use ->  { } 
+ 
+-> while working with PROPS without de-structure [means -> taking one referance object name as a property] -> we should not enclose the property with { }.
+
+-> We can use any name as a property referance.
+
+  Ex  :    function  MyProperties(props){    }				or
+	   function  MyProperties(drops){    }   // any name we can take
+
+           function  MyProperties({props}){   }   // It wont work
+
+-> we can pass any type of data from the parent to child
+    EX:  numbers , boolean , Strings, functions , arrays , objects .
+
+-> Always it's a parent to the child relation  ,No it's not possible to modify the data from the child [Read Only].
+
+-> We Can perform DeStructuring as well 
+
+
+
+```````````````PARENT Component
+
+import { Fragment, useState } from 'react'
+// import './App.css'
+// import Component1 from './Components/CompFile1'
+// import { Mydata, AgeDetails, Result as Res } from './Components/CompFile1'
+// import Comp3 from './Components/CompFile3'
+// import Data from './Components/DeStructure'
+import MyComponent from './Components/Props'
+
+function App() {
+  return (
+    <>
+      <h1>APP/root Component</h1>
+      <hr />
+      <MyComponent name='Reactjs'
+        age='25'
+        salary={7878}
+        isQualified='true'
+        isMarried={false}
+        myFunction={() => 'function calling'}
+        subjects={['java', 'python', 'dotnet', 45, true]}
+        data={{
+          college: 'GMRIT',
+          Ranking: 'top100',
+          palcements: 'yes',
+          fees: 99999
+        }}
+      />
+    </>
+  )
+}
+
+export default App
+
+
+
+```````````````CHILD Component
+
+import React from "react";
+
+function  MyProperties(drops){
+
+    return (
+        <>
+        <h1>my name is : {drops.name} </h1>
+        <h1>my age is : {drops.age}</h1>
+        <h1>my salary is : {drops.salary}</h1>
+        <h1>is Qualified : {drops.isQualified ? 'Qualified' : 'Not Qualified'}</h1>
+        <h1>is Married : {drops.isMarried ? 'Yes Married' : 'Un Married'}</h1>
+        <h1>I'm a function : {drops.myFunction()}</h1>
+        <h1>Subjects are : {drops.subjects[0] }</h1>
+        <h1>College Name: {drops.data.college}</h1>
+        <h1>College fees: {drops.data.fees}</h1>
+        <h1>Ranking : {drops.data.Ranking}</h1>
+        </>
+    );
+}
+
+export default MyProperties;
+
+
+DeStructuring 
+=============
+
+-> Means we can access the values directly without any Common object refereance 
+
+-> Directly the attributes of parent component passing as parameters in child components.
+
+
+Note:
+------
+-> IF the CHILD component function contains atleast one parameters we should enclose with the { }  with curly brackets.
+
+
+Ex :
+----
+
+`````````````````Parent Component
+
+
+        <DeStructure   name = 'ReactJs'   price ={999}   />
+
+
+```````````````````Child Component
+
+	
+	function DeStructure({name , price}){
+
+    return (
+        <>
+                <h1>Course name is : {name}</h1>
+                <h1>Course fees : {price}</h1>
+	</>
+	   );
+
+            
+	}
+
+-------------------------------------------------------------------------------------
+
+
+Default values
+==============
+
+-> When a Child component function accept some parameter values , but parent faild to send the values , in this case we can use these default values approach to intialise the parameters with default values [backup values].
+
+Note :
+-----
+
+Always enclose the parameters and their values with in { } curly brackets , 
+even it contains only one or more than one
+
+
+->   Ex :
+
+	assign the value directly inside the function parameters
+
+```````````function DefaultValues({ name = 'DELL', price = 77887}) {
+
+	    return (
+        	<>
+            <h1> name of device : {name}</h1>
+            <h1>price of device : {price}</h1>
+		</>
+		);
+	}
+
+
+Output :
+
+name of device : DELL
+price of device : 77887
+
+------------------------------------------------------------------------------------
+
+-> We can use these Default values in 2 cases 
+
+	1) Function components
+	2) Class components
+
+
+1) Functoin components 
+-----------------------
+
+-> Directly pass the values to the function parameters . 
+
+-> we can pass any type of values to those parameters
+
+Ex:
+
+
+import React from "react";
+
+
+function DefaultValues({ name = 'DELL', price = 77887,
+    rating = '4.5', text = 'Click here',
+    clr1 = 'white',
+    clr2 = 'Teal',
+    clr3 = 'yellow' }) {
+
+    return (
+        <>
+            <h1> name of device : {name}</h1>
+            <h1>price of device : {price}</h1>
+            <h1>rating of the device : {rating}</h1>
+
+            <button style={{ color: clr1, backgroundColor: clr2 }}>{text}</button>
+
+            <h2 style={{ backgroundColor: clr3 }}>New header</h2>
+
+        </>
+    )
+}
+
+export default DefaultValues;
+
+
+2) Class components
+====================
+
+-> Creating the component using class structure
+
+-> Until React version 16.8 we used to create the components with the help of class components.
+
+-> by extending React.Component and use the render() function
+
+-> in the class componenet we can export and import the class name as a component
+
+-> we can export class component in both ways usign default and normal { }
+
+Create class component structure
+---------------------------------
+
+
+EX : 
+
+import React from "react";
+
+
+class MyClass extends React.Component{
+
+    render() {
+
+        return (
+            <>
+            </>
+        )
+
+    }
+}
+
+export default MyClass;
+
+
+Example 2 :
+----------
+
+-> How to Use default values in side the class components 
+
+
+````import React from "react";
+
+class MyClass extends React.Component {
+
+    render() {
+
+        return (
+            <>
+
+                <h1>product name : {this.props.name}</h1>
+                <h1>product price : {this.props.price}</h1>
+                <h1>screen size : {this.props.size}</h1>
+
+                {/* <h1 style={{ color: 'red' }}>HEADER BOX</h1> */}
+            </>
+        )
+
+    }
+}
+
+MyClass.defaultProps = {
+    name: "Lenovo",
+    price: "9999",
+    size: '35cm',
+}
+
+export default MyClass;
+
+
+Note :
+-----
+
+-> Class components is the old approach to create React components
+-> Always recommened to create the react components with FUNCTIONAL Componenets 
+   means with the help of functions.
+
+--------------------------------------------------------------------------------------
+
+
+=> Access the values using Template literals
+
+
+
+function DefaultValues({ name = 'DELL', 
+			price = 77887, 
+			rating = '4.5') {
+
+	return (  
+		<>
+            <h1>Using T L  for Product name: {`${name}`}</h1>
+            <h1>Details : {` the price is ${price} , and the rating is ${rating} `}</h1>
+
+		</>
+		)
+	} 
+
+export default DefaultValues;
+
+-----------------------------------------------------------------------------
+
+JSON :
+======
+
+->JAVA SCRIPT OBJECT NOTATION
+
+-> It represents the data in the form of key's and value's , and used to trnasfer the data between the applications
+
+-> Convertiosn process from Java script object to JSON object vice versa.
+
+-> Always keys should represent with double quote -> " keys " -> String format
+
+-> Always values should represent with double quote -> " values " -> String format -> Except Numbers and booleans.
+
+FORMAT OF JSON
+---------------
+
+
+{
+	"product":"apple",
+	"model":"17pro",
+	"price":"1L",
+	"rating":4.8,						// number
+	"isExpensive":true					// boolean
+	"availableIn":["india","canada", true , false]		// Array type
+	"details":{"screen":"amoled","stock":999,"ServiceCenter":true}  //nestedObj
+}
+
+
+1) Java script to JSON :
+-------------------------
+
+-> To Convert Java script object into JSON object , there is a method called JSON.stringfy().
+
+-> Ex : 		
+	
+// Normal Java script object
+
+var data = {
+
+    product: 'apple',
+    model: '17pro',
+    price: '1L',
+    rating: 4.8,
+    isExpensive: true,
+    availableIn: ['india', 'china', 'usa', 'canada' ,124 , true , false ],
+    details : {
+        screen : 'amoled',
+        stock : 999,
+        ServiceCenter : true
+    }
+
+};
+
+// Converting into JSON object
+var result = JSON.stringify(data);
+
+console.log(result);
+
+
+
+Note :
+-----
+
+-> If any value in java script object is function type , it will not convert to json object
+
+Output :
+-------
+{
+	"product":"apple",
+	"model":"17pro",
+	"price":"1L",
+	"rating":4.8,						// number
+	"isExpensive":true					// boolean
+	"availableIn":["india","canada", true , false]		// Array type
+	"details":{"screen":"amoled","stock":999,"ServiceCenter":true}  //nestedObj
+}
+
+
+1)  JSON to Java script:
+-----------------------
+
+
+// JSON Object
+var data  = '{"name" : "hello" , "id" : 45 , "price":"1L" ,"rating":4.8, "isExpensive":true , "availableIn":["india","canada", true , false]	, "details":{"screen":"amoled","stock":999,"ServiceCenter":true}}';
+
+// Converting into Java script object
+var result = JSON.parse(data);
+
+console.log(result);
+	
+
+Note :
+------
+While practing write complete JSON object in a single line , other wise there will be a lot of error in a compilation time.
+
+---------------------------------------------------------------------------------------------------
+
+Before Hooks:
+-------------
+
+-> There are some features are available in React.
+	
+	Ex : States, Life cycle methods , Effects,  .....
+
+-> Before 16.8v To use or implements or work with the above features  , Always its only possible with the help of Components created with the Classes.
+
+-> To Enable these features to work work with Functional components one approch introduced , that approach is called HOOKS.
+
+-> Hooks are like a predefind Functions used to implements react features with Functional components.
+
+
+========
+Hooks :
+========
+
+->usestate()
+
+
+Syntax  :
+
+	const[ variable1  ,  setVariable1 ]   =   usestate(value);	
+
+
+
+variable1   -> what ever the value we are passing as a parameter for usestate(value)	.
+
+
+	EX :
+
+		usestate(1);		->>>>>    variable1 =  1
+		usestate(5);		->>>>>    variable1 =  5 
+
+
+
+setVariable1   -> used to To update or modify the variable1 
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	 
+
+
+

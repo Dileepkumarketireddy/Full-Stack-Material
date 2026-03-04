@@ -1,0 +1,473 @@
+------------------------------------------------------------------------
+
+In React, we have two types of components:
+
+1. Class Components
+
+2. Functional Components
+
+
+1) ex for class
+----------------
+
+class MyComponent extends React.Component {
+  render() {
+    return <h1>Hello from Class</h1>;
+  }
+}
+
+
+
+Key Notes:
+----------
+-> Uses lifecycle methods (componentDidMount(), componetDidUpdate() , componentWillUnMount()     ,..etc.).
+
+-> Used more before React v16.8.
+
+
+2) ex for functional 
+--------------------
+
+function MyComponent() {
+  return <h1>Hello from Function</h1>;
+}
+
+
+or ?  using direct arrow function()
+-------------------------------------
+
+const MyComponent = () => <h1>Hello</h1>;
+
+
+
+& function with props->>>>>
+
+
+
+var Name = (props)=>  <h1>ARROW FUNCTION COMPONENT:  {props.product}</h1>;
+
+
+Key Notes:
+----------
+
+-> Uses Hooks (useState, useEffect, useLayoutEffect, useRef,.. etc.).
+
+-> Simpler and more concise.
+
+-> Became powerful after Hooks were introduced in React v16.8 (2019).
+
+---------------------------------------------------------------------
+
+
+So, in real-world modern applications — which one is used more?
+
+======> Functional Components are now the standard. Why?
+
+Hooks = Power
+-----------------
+Functional components can now do everything class components can (and more) using Hooks.
+
+Cleaner code
+-----------------
+Functional components are more concise and easier to read.
+
+
+Performance optimizations
+------------------------------
+-> React internally optimizes functional components better with algorithms like React Fiber.
+
+-> Easier to test and reason about.
+
+
+----------------------------------------------------------------------
+
+
+
+Year			Common Practice
+-----			----------------
+till 2018		Mostly class components
+2019+			Transition to functional components with Hooks
+2023+			Only functional components in most codebases. 
+
+
+
+Note:
+-----
+Focus on functional components with Hooks.
+Class components are good to know (for legacy code), but you won’t use them much in modern development.
+
+------------------------------------------------------------------------
+
+Life cycle :
+
+-> Every React component has its own life cycle from the creation or ending 
+
+
+Life cycle methods :
+--------------------
+
+1) componentDidMount()
+2) componentDidUpdate()
+3) componentWillUnMount();
+
+
+-> React component lifecycle methods are special methods that are called automatically at different stages of a component's existence.
+
+-> from its creation (mounting), to updates, and finally when it's removed from the DOM (unmounting).
+
+
+Note: 
+=====
+-> Lifecycle methods are primarily used in class components, not functional components. 
+
+-> In functional components, the same behavior is achieved using React Hooks (like useEffect() funcion , etc.).
+
+
+
+Three (3) Phases of a Component's Lifecycle
+-------------------------------------------
+1) Mounting
+
+2) Updating
+
+3) UnMounting
+
+
+Mounting – when the component is being inserted into the DOM/Web page.
+
+Updating – when the component is being re-rendered due to changes in props or state.
+
+Unmounting – when the component is being removed from the DOM.
+
+
+
+
+1) Mounting phase -> 	componentDidMount()
+--------------------------------------------
+
+-> Called once after the component is mounted.
+
+-> Used for side effects like API calls or Fetching data etc.
+
+
+componentDidMount() {
+ 	// logic to perform any DOM task 
+}
+
+
+2) Updating phase-> 	componentDidUpdate()
+--------------------------------------------
+
+-> Called after DOM is updated.
+
+-> Good for performing side effects based on prop/state changes.
+
+syntax:
+-------
+
+componentDidUpdate() {
+  	// logic executed when DOM is updated
+}
+
+
+3) unMOunt phase  -> componentWillUnmount()
+--------------------------------------------
+
+
+-> Use this to clean up timers, cancel requests, unsubscribe, etc.
+
+componentWillUnmount() {
+  // clean up activities
+}
+
+
+
+
+
+Functional Equivalent with Hooks
+=================================
+
+In functional components, you would use useEffect() instead of lifecycle methods:
+
+useEffect(() => {
+  // componentDidMount   & update based on the dependancy array condition
+  fetchData();
+
+  return () => {
+    // componentWillUnmount
+    cleanup();
+  };
+}, []); // empty dependency array = only run once
+
+--------------------------------------------------------------------------------
+
+==========================================
+Short cuts to create the React Components
+==========================================
+
+function componenets
+---------------------
+rfc -> react function component -> [witn inline defult export]
+
+rfce -> react function component export -> [ explicitly exporting component]
+
+rfcp -> react function component props -> [explicit export with properties]
+
+
+class components
+-----------------
+rcc -> react class component -> [with inline default export]
+
+rccp -> react class component props -> [explicit export with properties]
+
+
+------------------------------------------------------------------------------
+
+
+=> Small example to observe the life cycle of a componet using function componenet with useEffect() hook
+
+Example :
+---------
+
+import React, { useEffect, useState } from 'react'
+
+function Examp() {
+
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+
+        var stop = setInterval(() => {
+            // console.log('running');
+            setCount(count + 1);
+        },1000);
+
+        return () => {
+            if (count == 5) {
+               clearInterval(stop);
+            }
+        }
+    });
+
+
+    return (
+        <div>
+            <h1>Count: {count}</h1>
+            {/* <button onClick={call}>call</button> */}
+        </div>
+    )
+}
+
+export default Examp;
+
+
+--------------------------------------------------------------------------------
+
+======================================================
+-> Build a small site that generates Random quotes .. 
+
+-> using Fetch API.
+======================================================
+
+
+Fetch()
+-------
+-> fetch is a predefined function in java script used to send the requests and get response.
+
+-> we need to mention 'url' as parameters in string format usign  ' ' quotes.
+
+-> The fetch() function in JavaScript returns a Promise that resolves to a Response object.
+
+-> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lets assume BACK END is completed
+
+-> back end applicaton contains Several methods
+
+
+assume 3 methods available
+------------------------------
+
+method1()-> used to find ALL quotes at a time.
+
+method2()-> used to find only one sinlge unique Quote
+
+method3()-> used to find Random quote every time if this method calls.
+
+
+java class 
+----------
+
+public class Methods{
+
+url:
+http://localhost:8080/student/methodONE/		
+
+ void method1(){
+		// logic to get student details
+		// sysout ()
+		return  result;
+ 	}
+
+http://localhost:8080/student/methodTWO/
+ method2(){
+		// logic
+	}
+
+http://localhost:8080/student/methodTHREE/
+method2(){
+		//logic
+	{
+
+
+psvm(){
+
+	//Methods m = new Methods();
+
+		//m.method1();		// don't call like this
+		//m.method2();
+		//m.method3();
+
+}
+
+}
+
+
+Note -> we call the methods [or API's ] usign URL's 
+
+-> every URL of a methods is unique with different END POINTS
+
+Ex :    
+ 
+http://localhost:8080/student/methodTWO/
+				/\
+			       /  \
+			        |
+				|______   it is the End points separated by( / )
+
+
+---------------------------------------------------
+for random quotes use any other 3rd party API or application as your back application
+
+link : 
+======
+
+https://dummyjson.com/docs/quotes
+
+
+some available URL'S-?
+---------------------
+
+
+-> For allquotes -> https://dummyjson.com/quotes      
+
+-> Get a single quote -> https://dummyjson.com/quotes/1
+
+-> Get a random quote -> https://dummyjson.com/quotes/random  -> use THIS
+
+
+--------------------------------------------------------------------------------
+
+
+-> Fetch return type is PROMICE 
+-> So it returns either Success or Failed response
+-> Succes we handled using then()
+-> Failed we handled using catch()
+
+-> the incoming JSON data converted to JAVA SCRIPT data using  .json() function.
+
+
+APPLIED CSS
+-----------
+-> 3 ways ->
+	1) inline 
+	2) internal 
+	3) external 
+
+in the below example we applied CSS using INLINE and INTERNAL
+
+
+Example:
+========
+
+import React, { useState } from 'react'
+
+function GenQuotes() {
+
+    var [value  , setValue]  = useState('');
+
+// internal css styles info
+    let stylesdata   = {
+
+            color : 'white',
+            backgroundColor : 'teal',
+            borderRadius : '15px',
+            height : '180px',
+            width : '30cm'
+    }
+
+
+    function getQuote(){
+
+            fetch('https://dummyjson.com/quotes/random')
+                .then(response => response.json())     // converts JSON to JS
+                .then(data=> {
+                    console.log(data)
+                    setValue(data.quote);
+                })
+
+                .catch(error=> console.log(error))
+    }
+
+
+    // load a quote when page or component loaded on browser
+    useEffect(()=> {           
+        getQuote();
+    },[]);
+
+    return (
+        <div>
+
+            <button style={{color : 'red' ,border : '1px solid red'}} 
+            onClick={getQuote}>Get a Quote</button> <br />
+
+            <h1 style={stylesdata}>{value}</h1>
+        </div>
+    )
+}
+
+export default GenQuotes;
+
+------------------------------------------------------------------------------------------
+
+====================================================
+Create a simple web site to generate random Jokes
+====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+

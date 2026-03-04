@@ -1,0 +1,765 @@
+Spring frame work:
+==================
+
+Pre-Requesites
+------------
+
+1) Java
+ ->JDBC, SERVLETS -> Optional 
+2) Sql [CRUD Operations]  Create, retrieve, update, and delete..
+
+--------------------------------------------
+
+Why we need to learn spring framework?
+
+
+-> if you want to become a java back end developer , spring is the essential skill every developer has to upgrade.
+-> for both freshers and experienced aswell.
+-> All java related application using SPRING frame work only in the current market
+-> to survive in IT learning spring is mandatory.
+
+
+-----------------------------------------------
+
+course coverage
+----------------
+1) spring core
+
+2) spring web MVC
+
+3) SPRING BOOT  ************
+
+4) Rest API's
+
+5) Spring data JPA
+	-> Diff Hibernate and Data Jpa
+
+6) Spring cloud libraries
+
+7) MicroServices
+
+8) real time tools -> Git , postman , swagger , sonarcube ,......
+
+----------------------------------------------
+
+What is Framework ???
+=======================
+
+-> Framework means semi-developed software.
+-> Frameworks provides some common logics which are required for application development
+
+	Ex: Hibernate, Struts, Spring etc,..
+
+-> If we use framework in our application development then we need to focus only on business logic
+   
+	(frameworks will provide common logics required for our application)
+
+
+Hibernate -> 
+-----------
+Its a ORM frame work [Object relational mapping] used to develop ONLY persistance layer of the application.// >> DATA JPA >>
+
+Struts -> 
+---------
+It is a web frame work , & used to develop only web layer of the application. but now it is outdated.
+
+
+Spring frame work -> 
+-----------------
+-> It is an application development framework. 
+-> we can develop entire end to end application by using this spring frame work.
+-> means all the layers of application we can develope with this frame work. 
+->Entire project can be developed by using this. [ not only web & persiatance all it can devolep ]
+
+				
+Weblayer = Controller classe [ Struts ]
+Business = Service clase     [ JEE concepts ]
+Persistance = DAO [DATA ACCESS OBJECT] class [CRUD operations ] logic which is responsible to communicate with the data base [ hibernate ]
+
+===============================================
+Multiple Layers in Spring frame work|
+===============================================
+
+1) Controller/web layer
+2) service layer
+3) Repository layer
+
+1) Controller layer
+-------------------------
+
+-> It acts as a front controller for a java application.
+-> based on the incoming request it will executes the corresponding logic present in the service layer & Returns the output to the UI.
+
+2) Service/Business layer
+------------------------
+-> it contains the core business logic of each and every incoming request.
+
+-> bases on the request it executes logic and returns the response to the contoller layer.
+
+3) repository/Persistance layer
+--------------------------------
+
+-> it is used to establish a connection between and the java application and the data base.
+
+-> to develop this repository or persistance layer we can use hibernate or Spring data JPA
+
+----------------------------------------------------------------------------------------------
+
+
+Spring Frame work advantages: 
+=============================
+
+-> Spring frame work is free and open source software tool.
+
+-> and it is a light weight application.
+
+-> we can integrate this spring frame work with any other frame works which are available in the market.
+
+-> So that is the reason it is said to be a varsatile frame work. [Adjustable frame work].
+
+-> This Spring frame work not force us to implements or extends any frame work related classes 
+  that is the reason it is said to be a 'Non Invasive frame work'.
+
+Ex : In Servlets we need to implements or extends Servlets interface or HttpServlet, GenericServlet classes to work with servlets.
+
+-> Spring works based in the POJO classes. [Plain Old java Objects].
+
+-> Spring contains multiple modules , with those we can develop entire back end of the application.
+
+-------------------------------------------------------------------------------------
+
+
+spring frame work modules:
+==========================
+
+-> spring core  
+-> spring cotext
+-> spring DAO/JDBC
+-> spring ORM
+-> spring aop
+-> spring web mvc
+-> spring boot    -> one of the approach to develop spring based application
+-> spring rest
+-> spring cloud
+-> spring data jpa
+-> spring batch
+-> spring security,....
+-> spring AI
+
+
+architectural design pattern
+
+-> Micro services    // develop micro services based application by using spring modules
+
+Note : 
+-------
+-> spring don't force the user to select any particular modules to work with the spring f/m.
+
+-> among the above all modules the user can select any type of module based on the requirement to develop the application.
+
+
+1) Spring core  :   it provides the basic concepts of spring frame work
+			
+			-> Dependancy injection   
+			-> IOC container
+
+2) Spring context :  It deals with the configuration related stuff.
+
+3) Spring DAO/JDBC : It is used to develop the persistance layer of the application.
+
+4) Spring ORM : It is also used to develop the persistance layer of the application with the ORM [Object relational mapping] Features.
+
+5) Spring AOP : 
+	
+	-> AOP stands for - Aspect Oriented programm 
+	-> It deals with some Cross cutting logics.
+	
+	Application -> Main Business logic   +   Secondary logics [Cross cutting logics]
+
+ 	-> By using this aop we can separate main logics and common or secondary logics.
+
+6) Spring web MVC 
+	
+	-> Used to develep the web applications by using MVC pattern
+	-> MVC stands for -> MODEL VIEW CONTROLLER
+
+7) spring boot 
+
+	-> it is one of the latest spring module to develop any type spring based application.
+
+8) spring rest 
+	
+	-> used to develop the Rest API's 
+	-> used to develop rest full applications.
+
+9) spring cloud
+
+	-> it deals with micro services archtecture related libraries by providing the     following features
+	
+		-> Service registery
+		-> API gate way
+		-> Fuein client
+		-> Eureka dashboard,.......
+	
+	ex : spring-cloud-netflix ,..
+	     spring-cloud-eureka,.
+	     spring-cloud-Apigateway,..
+              Zipkin server libraries , etc...
+
+10) Spring data JPA 
+	
+	-> used to develop the persistance layer of the application with advanced features
+	-> it contains pre defined methods to perform CRUD operation with the data base.
+
+11) Spring batch
+	
+	-> it is used to perform batch processings -> to perform bulk operations
+
+12) Spring Security
+	
+	-> It is used to add security features to the application 
+	-> by using Autherisation and Authentication.
+
+-------------------------------------------------------------------------------------------
+
+History of the spring framework
+===============================
+
+-> Spring Framework 1.0, the first production release -> in the year 2004
+
+-> The latest stable release of the Spring Framework is 6.2.11. or [6.x.x] in the year of 2025.
+
+-> Spring Boot version -> 3.5.x
+
+
+Note :
+ In the interview's they ll ask you on what version of spring frame work u r working ? 
+ or what spring boot version you used in your project ? 
+
+-> Always try to say some old version version numbers.
+
+------------------------------------------------------------------------------------------
+
+//   
+class A                      class B
+
+ // m1()			  m3();
+
+				A a = new A();
+				  a.m1();  //
+				   a.m2();  //
+// m2()			
+				B b  = new B();
+				   b.m3();
+
+
+
+-> Any java project contains multiple classes 
+
+-> and all the classes will comminicate or talk with each other in the following ways.
+
+	1) Inheritance   - extending & creating objects direcly
+	2) Composition   - but creating objects direcly
+
+-> In both the cases the classes become tightly copuled. Why becuase of we are creating Manually one class object in other class Directly.
+
+-> We can take the help of Spring core to create objects and manage them among the classes.
+
+-> To work with Spring Core module we need to ensure best practices to achive the loosly coupling.
+
+-> Spring core module recommends or suggests to use a best approach called "Strategy design pattern" to develop any spring application.
+
+
+--------------------------------------------------------------------------------------------
+
+"Strategy design pattern"
+==========================
+
+-> It's a design pattern comes under Behavioral design pattern.
+
+-> if multiple logics are there it will pick or select one logic at the run time .
+
+ Ex:
+ ---
+1) Online order ->    pay bill only one mode -> thorough debit
+
+2) Online order -> 	pay bill with multiple modes -> 
+						Debit card
+						Credit card
+						 NetBaning ,
+						 Cash on delhivery ,....
+
+Rules : 
+-------
+
+-> Favour to Composition instead of Inhertiance.    // still we have problem -> Tightly coupled
+
+-> to Achieve Loose coupling among the classes , Code to the interfaces not to the classes
+
+-> It picks the algorithm or the business logic at the run time of the application.
+
+-> Code should be open for Extension , But closed for Modification.
+
+   [Adding/Deleting functionlities can be applicable , but Modifying the existing code is not applicable]
+
+
+--------------------------------------------------------------------------------------------
+
+
+Inheritance example code : 
+---------------------------
+
+Parent/Base class :  Engine class
+------------------
+
+public class Engine {
+
+
+	public int engineStart() {
+		
+		System.out.println("engine started");
+		
+		return 1;
+		
+	}
+
+}
+
+
+
+Child/subClass:     Car class 
+-------------------
+
+public class Car extends Engine  {
+
+	public static void main(String[] args) {
+
+		Car c = new Car();		// Creating Parent class obj in child class
+		int value = c.engineStart();
+
+		if (value > 0) {
+			System.out.println("Car is moving");
+		} else {
+			System.out.println("Car is not moving");
+		}
+
+	}
+
+}
+
+
+note : at a time a child can able to access only one parent ,its not possible to communicate with multiple classes at a time
+
+Inheritance drawbacks
+=====================
+
+1) Multiple inheritance is not supported
+2) classes will get tightlt coupled
+
+
+Tightly coupling :
+=================
+
+-> If there is changes happend in a one class it will effect another class, it means the 2 classes are said to be tightly coupled.
+
+-> one class will directly dependant on another class.
+
+-> In the real time there are > 100 of classes will be availabe so we need to ensure loosly coupling among the multiple classes.
+
+
+Composition   :
+============
+
+-> A class contains another classes objects as in the form of instance variables.
+
+Exampe:
+-------
+
+
+multiple classes:
+------------------
+
+Engine class
+Wheels class
+Repairs class
+
+
+```Engine class
+
+
+public class Engine {
+	
+	public void engineStart() {
+		System.out.println("engine started");
+	}
+
+}
+
+
+``````Wheels class
+
+public class Wheels {
+	
+	public void wheelsRotate() {
+		System.out.println("wheesl are rotating");
+	}
+}
+
+
+`````````Repairs class
+
+public class Repairs {
+
+	public void repairCar() {
+		System.out.println("car is repaired");
+	}
+}
+
+
+All the above classes communicating with a commin class - Car class
+
+
+public class Car {
+
+	// engine , Wheel , Repairs class instance variables
+	public Engine engine;
+	public Wheels wheel;
+	public Repairs repair;
+
+	public void communicate() {
+
+		engine = new Engine();
+		engine.engineStart();
+
+		wheel = new Wheels();
+		wheel.wheelsRotate();
+
+		repair = new Repairs();
+		repair.repairCar();
+
+	}
+
+	public static void main(String[] args) {
+		Car c = new Car();
+		c.communicate();
+
+	}
+
+}
+
+Note : 
+
+-> By using composition we can achieve multiple classes communications at a time , menans we rectified or we found some alternative solution for the Multiple inheritance issue.
+
+-> But all the classes are getting TIGHTLY COUPLED , if any changes happend in one class it effecting the remaining classes
+
+-----------------------------------------------------------------------------------------------
+
+Note : 
+-----
+
+-> For Both Inheritance and Composition approach the classes are tightly coupled.
+
+-> so always Spring core highly suggesting to use "Strategy design pattern" approach. 
+
+
+--------------------------------------------------------------------------------------
+
+
+==============
+Spring core :
+==============
+
+-> Spring core is the Base module in the spring frame work
+
+-> All the remaining modules developed on top of this spring core module.
+
+-> To work with or to learn any other modules in spring frame work it is mandatory to understand how spring core can work.
+
+-> Spring core provides the following Fundamental Concepts
+
+
+	1) DI -> Dependancy injection
+
+	2) IOC -> Inversion of controll
+
+
+========================
+Dependancy injection :   // Object injection 
+========================
+
+-> The process of Injecting one class object into the another class is called as "Dependancy Injection".
+
+-> Total there are 3 types of dependancy injections are available.
+
+
+3 types
+=======
+1) SetterMethod injection 
+2) Constructor injection 
+3) field level injection
+----------------------------------------------------------------------------------------
+
+
+Before Interface
+----------------
+
+BillCollector  <<<<   Multiple Payment options
+
+
+After Interface
+---------------
+
+BillCollector  >>>>   Interface    <<<<  Multiple payment options
+
+
+---------------------------------------------------------------------------------------------
+
+
+1) SetterMethod injection 
+-----------------------------
+
+-> The process of Injecting one class object as a parameter of setter method is called as Setter method injection.
+
+ Ex : 
+
+		BillCollector bcl = new BillCollector();
+		
+			bcl.setPayment(new DebitCard());     // injection of onject 
+
+
+2) Constructor injection 
+--------------------------
+-> The process of injecting one class object as a parameter for the Constructor is called as 
+Constrctor Injection.
+
+Ex : 
+		BillCollector bcl  = new BillCollector(new CreditCard());
+		bcl .collectPayment();
+
+3) Field Injection
+------------------------
+
+-> The process of injecting one class object to the field or variable directly , that is called as Field level injection
+
+Ex: 
+
+		// Field injection
+		BillCollector bc3 = new BillCollector();
+
+		bc3.payment = new UpiPayment();		// injecting object to the variable
+		bc3.collectPayment();
+
+
+
+Example code : 
+--------------
+
+Interface
+=========
+
+public interface Payment {
+
+	public String pay();
+	
+}
+
+Implemented classes
+======================
+1) 
+
+public class DebitCard implements Payment{
+	
+	@Override
+	public String pay() {
+		return "Payment done from DEBIT CARD";
+	}
+
+}
+
+
+2) 
+
+public class CreditCard implements Payment{
+
+	@Override
+	public String pay() {
+		return "Payment done from CREDIT CARD";
+	}
+
+}
+
+3) 
+
+public class UpiPayment implements Payment{
+
+	@Override
+	public String pay() {
+		
+		return "Payment done from UPI PAYMNET";
+	}
+
+}
+
+
+
+BILL COLLETOR CLASS
+---------------------
+
+
+public class BillCollector {
+	
+//	int age;  //default value of int -> 0
+	
+//	boolean value;   // default value of this => false
+//	
+//	String name;
+//	
+//	public BillCollector(int age , String name) {
+//		this.name  = name;
+//		this.age = age;
+//	}
+//	
+	
+	public Payment payment;    // Interface instance variable   //null  // 
+	
+	
+	// Setter method to intialise Instance variable
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	
+	//Default Constructor
+	public BillCollector() {
+		
+	}
+	
+	
+	// Constructor to intialise the instance variable
+	public BillCollector(Payment payment) {
+		this.payment  = payment;
+	}
+	
+
+	public void collectPayment() {
+
+//		UpiPayment upiPayment = new UpiPayment();
+//		String result = upiPayment.pay();
+//		System.out.println(result);
+
+		System.out.println(payment.pay());   // null.pay() 
+
+	}
+
+}
+
+
+TEST CLASS
+============
+
+
+package com.demo.java.spring;
+
+public class Test {
+
+	public static void main(String[] args) {
+	
+		// Setter method injection
+		BillCollector bc1 = new BillCollector();
+		bc1.setPayment(new DebitCard());
+		bc1.collectPayment();
+
+		
+		// Constructor Injection
+		BillCollector bc2 = new BillCollector(new CreditCard());
+		bc2.collectPayment();
+		
+		// Field injection
+		BillCollector bc3 = new BillCollector();
+		bc3.payment = new UpiPayment();
+		bc3.collectPayment();
+		
+	}
+
+}
+
+
+
+
+
+Task:
+-----
+
+OrderTrasnport
+
+interface -> trasport()
+
+
+Implemented classes	-> Air trasport()
+			-> Water trasport()
+			-> Road trasport()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

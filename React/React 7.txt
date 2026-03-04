@@ -1,0 +1,423 @@
+
+-> What is SPA ?
+-> What is React-router DOM , Why ? 
+-> and its installation 
+-> Waht is Browser Router? 
+-> Create different pages for routing
+-> Use <Routes> and <Route> 
+-> Use <Link> for Navigation
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+
+
+====================================================
+Create a simple web site to generate random Jokes
+====================================================
+
+
+```````````````````````
+
+const [data   , setData ]  = useState('');
+
+
+var data =  {
+
+id: 'TS7U0oWnjyd', 
+joke: "What is bread's favorite number?  Leaven.", 
+status: 200
+
+}
+
+setData(data.joke)   // getting the text of joke 
+
+
+
+
+=====================
+
+Code -> 
+
+=====================
+
+
+import React, { useEffect, useState } from 'react'
+
+function GenJokes() {
+
+    const [data, setData] = useState('');
+
+    let bstyle = {				// css for button
+        color: 'Red',
+        backgroundColor: 'yellow',
+        border: '1px solid black'
+    }
+
+    let stylesdata = {				// css for jokes header tag
+
+        color: 'black',
+        backgroundColor: 'yellow',
+        borderRadius: '15px',
+        boxShadow: '1px 5px 8px red',
+        height: '100px',
+        width: '30cm'
+    }
+
+    var getJokes = () => {
+
+        fetch('https://icanhazdadjoke.com/', {			// passing url , { methods , header}
+            method: 'Get',
+            headers: {			
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())                 // convertion
+            .then(data => {
+                console.log(data.joke)
+                setData(data.joke)				// to update stateVariable
+            })
+
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {						// for render a joke when page loaded	
+        getJokes();
+    }, []);
+
+    return (
+        <>
+
+            <h1>GENERATE JOKES</h1>
+
+            <h2 style={stylesdata}>{data}</h2> <br />
+
+            <button onClick={getJokes} style={bstyle}>Get Jokes</button>
+        </>
+    )
+}
+
+export default GenJokes;
+
+
+
+-------------------------------------------------------------------------------------------
+===============
+React Routers :
+===============
+
+
+SPA
+----
+-> Single page application
+-> contains only 1 HTML page
+-> never reload the page
+-> update the content dynamically with the help of java script
+-> smoother and faster user experiece
+-> low data usage.
+-> it acts or looks like a multipage application but technically it contains only one .HTML page
+
+
+
+how to provide the NAVIGATIONS
+-------------------------------
+
+-> in HTML we used anchor <a></a>  to provide the NAVIGATIONS 
+-> means to move from one page to another page
+
+But in REACT it contains only 1 HTML page than how to provide the navigation.
+
+
+-> By using """"REACT-ROUTER""""" we can achive the navigations in REACT APPLICATION's 
+
+
+===============
+REACT - ROUTER
+===============
+
+-> It is a Standard Library for handling the Navigations in the React applications.
+
+-> It allows the user to access or move from one page to the another page.
+
+-> used to make the ract application looks like MULTI-PAGE application.
+
+-> to use this libraty we need to install this library in side the react application
+
+=====================
+INSTALLATION PROCESS
+=====================
+
+-> inside of ur application run the given below commad
+
+Cmd> 	 npm install react-router-dom
+
+Note >
+
+if you get any issues while runnig the above command from your vs code terminal console
+-> then open the cmd prompt from ur file explorer [react applcation inside directory] and run the same command
+
+response -> 
+----------
+
+added 4 packages, and audited 157 packages in 6s
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+
+--------------------------------------------------------------------------------
+
+
+1) BROWSER-ROUTER  
+==================
+
+-> It is the main Router element - It wraps all the components and enables the react router features.
+
+-> all components already wrapped to a "APP.jsx" component so simple we can wrap app.jsx with the help of this "BrowserRouter"
+
+-> we need to enclose the "APP.jsx" in side the file called "main.jsx"
+
+````````inside of main.jsx
+ 
+	Ex : 
+		
+		  <BrowserRouter>
+    			<App />
+  		  </BrowserRouter>
+
+	or 
+
+	Ex : 
+
+		  <StrictMode>
+
+  			<BrowserRouter>
+    				<App />
+  			</BrowserRouter>
+
+  		  </StrictMode>
+
+	or
+
+	Ex: 
+
+		<React.Fragment>
+			 <StrictMode>
+
+  				<BrowserRouter>
+    					<App />
+  				</BrowserRouter>
+
+  		  	</StrictMode>
+		</React.Fragment>
+
+
+------------------------------------------------------------------------------------
+
+
+-> Create multiple .jsx [Components]files to handle the navigation.
+
+
+-> created
+		home.jsx
+		contacts.jsx
+		services.jsx
+		about.jsx
+
+----------------------------------------------------------------------------------------
+
+<Routes>
+
+<Route> 
+
+
+
+<List>
+
+----------------------------------------------------------------------------------------
+<Routes>
+========
+
+-> Its a Parent tag for the <Route> tag ,means we need to enclose All the <Route> tags
+  with the help of this <Routes>
+
+
+
+<Route> 
+========
+
+-> Route tag is where we can specify the url for the component to get accessed by a hiper link
+
+-> 2 attributes are
+
+	 path ->   providing the path or end point to access the element [componets]
+	elemenet ->  call or declare the the Component as a value for this element attribute
+
+
+Syntax ->  
+		<Route path=''   element=''/>	 
+
+Use case -> 
+
+
+->/* URL endpoints for Components */
+
+      <Routes>
+
+        	<Route path='/services' element={<Services />} />
+        	<Route path='/home' 	element={<Home />} />
+        	<Route path='/about' 	element={<About />} />
+        	<Route path='/contacts' element={<Contacts />} />
+       	      //<Route path='*' element={<h1>ERROR!, NO PAGE IS AVAILABLE</h1>} />
+
+      </Routes>
+
+
+Common mistake :
+---------------
+
+-> Dont enclose all the <Route> tags inside the <Router> tag
+
+-> If we use <Router> tag we will get the below issue
+
+Error message :
+
+Uncaught Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+
+
+======
+Link : 
+======
+
+-> Link tag is used To provide the navigation link to access the COMPONENT by updating the URL dynamically.
+
+-> It contains one attribute called "to" 
+
+-> for this attribute we need to specify what is the exact it can redirect to access component
+
+Syntax : 
+
+	    <Link to=''>  nameOfHyperLink  </Link>
+
+UseCase :
+
+	<nav>
+        	<Link to='/home'>Home</Link> | {" "}
+        	<Link to='/services'>Services</Link> | {" "}
+        	<Link to='/contacts'>Contacts</Link> | {" "}
+        	<Link to='/about'>About</Link> | {" "}
+             // <Link to='*'>ErrorPage</Link>
+      	</nav>
+	
+
+-----------------------------------------------------------------------------------------
+
+task:
+=====
+
+fetch employee or user details from the backend and retrive and show them in the UI using React applicaton ? 
+
+
+-> for dummy user or employee data use "json place holder".
+
+
+Example : 
+---------
+
+
+
+
+
+import React, { useEffect, useState } from 'react'
+
+
+function FindEmpData() {
+
+    var [details, setDetails] = useState([]);
+
+    var stylehead = {
+
+        color: 'white',
+        backgroundColor: 'teal'
+    }
+
+    var getData = () => {
+
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(responce => responce.json())
+            .then(data => {
+                // console.log(data)
+                console.log('page loading...')
+                setDetails(data);
+            }
+            )
+            .catch(error => console.log(error))
+    }
+    // useEffect(() => {
+    //     getData();
+    // },[])
+
+    function resetData(){
+         setDetails([]);
+    }
+
+    return (
+        <div>
+
+            <h1>ALL EMPLOYEE DETAILS</h1>
+
+            <button onClick={getData} style={stylehead}>Load Data</button>
+
+            <button onClick={resetData} style={stylehead}>Reset data</button>
+            <ul>
+                {
+                    details.map((element, index) => (
+                        <React.Fragment key={element.id}>
+                            <li> Employee id : {element.id} </li>
+                            <li> Employee Name : {element.name} </li>
+                            <li> Employee email : {element.email}</li>
+                            <li> Employee city : {element.address.city}</li>
+                            <li> Employee geo loc lat : {element.address.geo.lat}</li><br />
+                        </React.Fragment>
+                    ))
+                }
+
+            </ul>
+
+        </div>
+    )
+}
+
+export default FindEmpData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,454 @@
+Today session : DOM , SPREAD AND REST OPERATORS  ,..................
+
+
+
+
+Rest and Spread Operators: 
+============================
+
+
+Rest Operator (...)
+==================
+
+-> The rest operator allows a function to accept an indefinite number of arguments as an array. 
+-> It collects all remaining parameters into one array.
+
+-> while the spread operator allows for the expansion of an array into individual elements.
+
+
+Symbol for rest opetator  -> 3 dots ->   "    ...variable_name    "
+
+
+Without Rest operator passing multiple values as a function paramenters:
+--------------------------------------------------------------------------
+
+function names(name1,name2, name3, name4, name5 ){
+    console.log(name1 , name2, name3, name4 , name5);
+}
+
+names('hello', 'world', 34 , true , null, 12 , 45 , 78 );
+
+
+
+rest operator syntax:
+---------------------
+
+function elements(...names) {
+
+	console.log(names);
+}
+
+ex 1 : 
+------
+
+//without any return statement
+
+
+function data(...names){
+    console.log(names);
+}
+
+data(23 , 34, 45, 'hello', true);
+
+
+ex 2:
+------
+
+// with return statement
+
+
+function elements (...values){
+    return values;
+}
+
+// var result = elements(1,2,3,4,5,6);
+// console.log(result);
+
+ console.log(elements(1,2,3,4,5,6));
+
+
+outputs in Array format:
+------------------------
+
+[ 23, 34, 45, 'hello', true ]
+[ 1, 2, 3, 4, 5, 6 ]
+
+ex 3:
+------
+
+function elements (...values){
+    return values.sort();
+}
+
+ console.log(elements("zing", 'chrome', 'mozilla', 'edge' , 'A browser'));
+
+
+Output:
+
+[ 'A browser', 'chrome', 'edge', 'mozilla', 'zing' ]
+
+
+ex 4:
+
+
+function elements (...values){
+    console.log( values.sort());
+}
+
+elements(false , "zing", 45, true , 'chrome', 'mozilla', 12 , true ,  'edge' , 'A browser' , 78);
+
+ex 5:
+-----
+function elements (...values){
+    console.log( values.reverse());
+}
+
+elements(false , "zing", 45, true , 'chrome', 'mozilla', 12 , true ,  'edge' , 'A browser' , 78);
+
+ex 6:
+-----
+
+function sum (...numbs){
+    console.log(numbs.reduce((a,b)=> a+b));
+}
+
+// a = 1, b = 2 -> 3 ; 
+
+// a = 3 , b = 3 -> 6 ;
+
+// a = 6 , b = 4 -> 10;
+
+// a = 10, b = 5 -> 15;
+
+sum(1,2,3,4,5);
+
+Output -> 15
+
+----------------------------------------------------------------------
+
+
+Notes :
+---------
+
+-> Its possible to perform only for the arrays or strings
+-> only these type of objects stores their values in the form of index positions.
+-> see the below examples.
+
+Array:
+-----
+var arr1 = [1,2,3,4,5];
+
+console.log(arr1);
+console.log(arr1[0], arr1[1], arr1[2], arr1[3], arr1[4]);
+
+output:
+
+[ 1, 2, 3, 4, 5]
+1 2 3 4 5
+
+String : 
+--------
+var names = "hello";
+
+console.log(names);
+console.log(names[0] , names[1] , names[2], names[3], names[4]);
+
+Ouput is -> 
+
+hello
+h e l l o
+
+
+
+Spread Operator (...)
+=========================
+
+-> The spread operator expands (or "spreads") elements of an iterable (like an array or string) into individual elements.
+
+
+Symbol of Spread operator ->    ... variable name
+
+
+Ex 1: Array
+
+
+var arr1 = [1,2,3,4,5];
+
+console.log(arr1)
+console.log(...arr1);
+
+
+Output :
+
+[ 1, 2, 3, 4, 5 ]
+1 2 3 4 5
+
+
+
+Ex 2: String 
+----------------
+
+var name = "SPREADOPERATOR";
+
+console.log(name);
+console.log(...name);
+ 
+Ex 3: Merging Arrays 
+--------------------
+
+var arr1 = [1,2,3,4,5];
+
+var arr2 = [6,7,8,9,10];
+
+
+var arr3  = [...arr1,  ...arr2];
+
+console.log(arr3);
+
+
+
+Ex 4: Example with both spread and rest operators
+--------------------------------------------------
+
+-> 
+
+function data (...nums) {
+    return nums;
+
+}
+
+var obj  = [1,4,5,7];   // only one value with array type
+var obj2 = [3,4,5,6];
+
+console.log(data(...obj , ...obj2));
+
+---------------------------------------------------------------------------------
+
+
+
+DOM   [ DOCUMENT OBJECT MODEL ]
+=================================
+
+
+-> It used to represents the structure of an HTML as a tree of nodes (tag elements, text, attributes, etc.).
+
+-> Every element/tag, attribute, & piece of text in the HTML becomes a objet/node in this tree.
+
+Uses & Importance
+=================
+-> You can create ,update content & structure, and styles without reloading the page.
+
+-> Handles user events (like clicks or keypresses) to create interactive experiences.
+
+-> Foundation for Modern Frameworks and Libraries(React, Angular, Vue.js) rely/based on DOM manipulation.
+
+ 
+DOM Structure
+=============
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+  </body>
+</html>
+
+Each HTML tag becomes a node in the tree. 
+
+
+DOM TREE
+=========
+Each HTML tag becomes a node in the tree. 
+
+Document
+ |_ html
+     |_ head
+     |   |── title
+     | 	 |── meta
+     |	 |── script
+     |	 |── style
+     |── body
+         |── h1
+	 |__ body
+	 |__ div
+
+
+
+		
+		 
+
+How JavaScript Interacts with the DOM
+=======================================
+
+javascript interacts with the help of object called ->  "documet"
+
+
+
+it uses DOM api with document object-> 
+
+
+"document" > 
+=========
+document is a global object in JavaScript that represents the entire HTML page (the DOM).
+
+It gives you access to all the elements, content, and structure of the page.
+
+
+- > 
+
+Select elements: Find elements to read or change or Modify the DOM
+
+Manipulate content: Change text, HTML;
+
+Modify styles: Dynamically update CSS.
+
+Create or remove elements: Add new elements or delete existing ones.
+
+Handle events: Respond to user actions (clicks, typing, etc.)
+
+
+1. getElementById()
+-------------------
+
+-> This is a method (function) provided by the document object.
+
+-> It looks through the HTML and find and returns the first element with the specified id.
+
+-> "myId" is the value of the id attribute of the HTML element you're trying to access.
+
+-> If no element is found, it returns null.  ID always unique
+
+Syntax
+-------
+
+	const element = document.getElementById("myId");
+
+-> It The first element with the specified ID, or null if not found.
+
+
+
+const/let/var  element = ... ????
+==================================
+
+
+It stores the reference to the DOM element returned by getElementById("myId").
+
+
+
+-> You can now use element to:
+--------------------------
+Read or change its content
+
+Modify its styles
+
+Attach event listeners...and more..
+
+
+===========================================================================================================
+
+
+
+
+
+
+
+===========================================================================================================
+
+
+document.getElementById(id) – Selects an element by its ID.
+
+document.getElementsByClassName(class) – Selects elements by class name.
+
+document.getElementsByTagName("tagName") - Returns all elements with the specified tag name.	// .getElementsByTagName("li");     // <li> 
+
+document.querySelector(selector) – Selects the first element matching a CSS selector.      // querySelector(".container");     //<div class="container> ,<p..>
+												
+document.querySelectorAll(selector) – Selects all elements matching a CSS selector.	   // querySelectorAll(".text");	//<p class="text">Hello</p> , <p..>
+
+
+===========================================================================================================
+
+To Read or to set the content to the html page 
+
+-> element.textContent or 
+    element.innerHTML 	or 
+	element.innerText for html element		// Reads or sets the content.
+
+
+===========================================================================================================
+
+=============================
+DOM MODIFICATION IN JAVASCRIPT
+=============================
+
+--------------------------
+1. Change Text/Content
+--------------------------
+
+HTML:
+
+<p id="myPara">Original text</p>
+
+JavaScript:
+
+const para = document.getElementById("myPara");
+para.textContent = "New text added!";
+
+Other content-related properties:
+
+- textContent ->  only text
+- innerHTML -> allows HTML tags
+- innerText ->  considers styling and layout
+
+--------------------------
+2. Change Styles (CSS)
+--------------------------
+
+para.style.color = "blue";
+para.style.fontSize = "20px";
+
+--------------------------
+3. Create New Elements
+--------------------------
+
+const newDiv = document.createElement("div");
+newDiv.textContent = "I'm a new div!";
+
+----------------------------------
+5. Add New Elements to the Page
+----------------------------------
+
+document.body.appendChild(newDiv);
+
+Or insert into a specific container:
+
+const container = document.getElementById("container");
+container.appendChild(newDiv);
+
+or container.append(newDiv);  / or
+or container.active(newDiv);  
+
+-------------------------
+6. Remove Elements
+-------------------------
+
+const element = document.getElementById("myPara");
+element.remove();  // Modern
+
+-----------------------------
+7. Modify Element Attributes
+-----------------------------
+
+<img id="myImg" src="old.png">
+
+const img = document.getElementById("myImg");
+img.setAttribute("src", "new.png");
+img.setAttribute("alt", "New Image");
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+For Code refer folder 6 document

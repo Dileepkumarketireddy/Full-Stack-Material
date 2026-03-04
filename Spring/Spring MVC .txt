@@ -1,0 +1,564 @@
+		Spring web MVC
+====================================================
+
+-> Spring MVC [ Model View Controller ] 
+
+-> It is just one of the Module in the spring frame work to develop MVC based web applications.
+
+-> We can develop the following type applications.
+
+	1) Web Applications
+	2) Distributed Applications [ Restful web services ]
+
+Web Application:
+----------------
+
+	Customer -> to Business Communication 
+	
+	C 2 B [ Customer to Business ]
+	---
+
+-> Customer /  User can able to access web application directly through a User Interface 
+
+	Examples: Email , facebooK, Instagram
+
+Distributed Application:- 
+-------------------------
+
+-> If one application is communicating with the another application so then we can call it as what 
+	Distributed applications
+
+	B 2 B [ Business to Business ]
+	----- 
+-> These applications we can develop by using 2 ways
+	
+	-> SOAP web services   [Simple object access protocol]
+	-> Rest web services   [Representational state transfer]
+
+-> Note: We can develop both types of services by using Spring MVC module.
+
+
+	Ex:
+	---	Zomato ------ Banking Applications
+		RedBus ------ IRCTC, APSRTC, TSRTC ...
+		MakeMyTrip ---- IRCTC, ....etc
+		Amazon Pay, GPay ---- Banking applications.
+
+
+============================================================================================================
+
+
+Note:
+----
+
+Spring MVC is a web framework, so it's meant for building web applications—apps that typically run on a server (like Tomcat) and are accessed via a browser.
+
+With the help of Spring Boot, which simplifies dependency management and provides embedded servers (like Tomcat or Jetty), you can build stand-alone web applications using Spring MVC.
+
+
+
+============================================================================================================
+
+
+Spring web MVC Architecture:
+===========================
+
+1) Dispatcher Servlet************************************	
+2) Handler Mapper -> find out the controller
+3) Handler Adapter  -> to execute the controller 
+4) Controller***********************************************
+5) Model and View
+6) View Resolver*******************************************
+7) View
+
+
+Dispatcher Servlet:
+-------------------
+
+-> Dispatcher servlet is a pre-defined class in spring web MVC.
+-> This is responsible to perform Pre-processing and post-processing for each and every requests which are coming from end user/ client.
+-> it is acts like a Front controller of a web MVC application.
+
+Note: To know the controller class name which is associated/mapped/should be processed with the given Request URL.
+
+-> Dispatcher servlet dispatches the above task to Handler mapper.
+	so it will take the help of Handler mapper to do request mapping.
+
+Handler Mapper:
+---------------
+-> It's a pre-defined class in the spring web mvc.
+-> It is used to identify Request handler [Controller request mapping].
+
+-> It will perform or identify the controller class which is going to process the incoming request. by doing Request Mapping with the controller.
+
+
+Handler Adapter:
+----------------
+-> Dispatcher servlet is taking a help of Handler Adapter to execute the Controller.
+-> So Handler Adapter will call the controller class to execute business logic in my service layer.
+
+Controller:
+-----------
+-> Its a class which contains a logic to execute the business logic in service layer.
+-> Also called as a Request Handler.
+-> we can create a controller class by using @Controller or @RestController
+-> It will return the data in the form of Model and view object to Dispatcher servlet through Handler adapter
+
+Model and View:
+---------------
+-> Finally controller executes the business logic which is present in service
+   and the final result/response should be kept in the form of "Model and View".
+
+--> Model : The Data should be represents in the from of "Key-value" pair 
+--> View : It will return a view logical [file name].
+--> To display the data in view file we will use Model view object.
+
+View Resolver:
+--------------
+-> Dispatcher servlet dispatches the task of Resolving the View name to View resolver
+-> used to identify where exactly the view files are physically available in project.
+
+View:
+-----
+-> View renders the data [ Model ] and returns the response/result.
+-> View component renders Model data on physical view file to display that to the end user or client.
+==========================================================================
+
+
+
+Full Project Set up along with the code 
+
+
+SPRING MVC project:
+------------------
+
+-> Install extrenall tomcat server in your local machine
+
+steps:
+------
+-> Download the tomcat 9 version form the https://tomcat.apache.org/download-90.cgi
+-> Download the zip file as per your system configuration
+-> extract the zip file in any working directory
+
+
+-> in search icon find for the server -> click on create a new server -> 
+Apache folder-> select Tomcat 9 version , Add> Browse > select the folder path [ where bin folder available ]> click on next > Add Spring MVC > FINISH
+
+
+
+-> create a web mvc project with the following dependencies in pom.xml
+
+-> add the following dependencies in pom.xml 
+
+	spring web mvc
+	jakarta servlet api
+	javax servlet
+	tomcat embed jasper and core
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.3.23</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version> <!-- Use the appropriate version for your
+			project -->
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>9.0.70</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>9.0.70</version>
+		</dependency>
+	</dependencies>
+
+
+-> Installl the tomcat server and add the existing spring mvc project to the server.	
+
+-> Now im ready with project setup
+
+       -> Now create foleder -> under 
+					src > main> webapp >
+				
+						 	 > WEB-INF > views Folder 
+									-> .jsp files
+						          	   > web.xml
+							    	   > dispatcher-servlet.xml
+
+
+
+web.xml
+-------
+-> to configure Dispatcher servlet
+		
+2) create a web.xml file to configure dispatcher servelet
+
+	
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>	
+
+
+
+
+Dispatcher-servlet.xml:
+----------------------
+
+-> It is used to activate
+
+	* Handler mapping
+	* controller
+
+		
+	note: Controllers will connect to ->  services, DAO classes, entity classes ...
+
+
+-> Create dispacther.servlet.xml file to configure Internal View resolver :
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.example.controller" />		  // Here Modify the package path as per your project
+    
+    <mvc:annotation-driven />
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+</beans>
+
+usage of above  bean definition of internal view resolver
+-------------------------------------------------------
+
+
+
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+
+
+CONSTRUCT THE PATH FOR THE VIEW NAME:      /WEB-INF/views/index.jsp
+
+
+
+      Prefix        , suffix
+---------------      -------
+/WEB-INF/views/ index .jsp
+
+
+
+
+-> CREATE CONTROLLER CLASS:
+--------------------------
+
+
+Controller class 1:		it uses index.jsp page in views folder
+--------------------	
+
+package springwebmvc.java.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping("/controller1")
+public class FirstController {
+
+	@RequestMapping(value = "/one", method = RequestMethod.GET)
+	public ModelAndView FirstMethod() {
+		ModelAndView m1 = new ModelAndView();
+		m1.addObject("message", "data inserted using first Controller 1st method");
+		m1.setViewName("index");
+		return m1;
+	}
+
+
+	@RequestMapping(value = "/two" , method = RequestMethod.GET)
+	public ModelAndView secondMethod() {
+		ModelAndView m2 = new ModelAndView();
+
+		m2.addObject("message", "data inserted thorugh 1st Controller 2nd METHOD");
+		m2.setViewName("index");
+
+		return m2;
+	}
+
+}
+
+
+Controller class 2 : it uses frontpage.jsp page in views folder
+-------------------
+
+package springwebmvc.java.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping("/controller2")
+public class SecondController {
+
+	@RequestMapping(value = "/getText", method = RequestMethod.GET)
+	public ModelAndView getString() {
+
+		ModelAndView m1 = new ModelAndView("frontpage");
+		m1.addObject("text", "SECOND CONTROLLER 1 st Method Executed");
+		// m1.setViewName("name of the view page");
+		return m1;
+	}
+	
+	@RequestMapping(value = "/getCollege", method = RequestMethod.GET)
+	public ModelAndView getCollegeName() {
+
+		ModelAndView m1 = new ModelAndView("frontpage");
+		m1.addObject("text", "GMRIT college");
+		return m1;
+	}
+	
+	@RequestMapping(value = "/getBranch", method = RequestMethod.GET)
+	public ModelAndView getBranchDetails() {
+
+		ModelAndView m1 = new ModelAndView("frontpage");
+		m1.addObject("text", "CIVIL Engeneering");
+		return m1;
+	}
+}
+
+
+Controller 3: Use @RestController  & @GetMapping
+
+
+package springwebmvc.java.controllers;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+//@Controller
+@RestController
+@RequestMapping("/controller3")
+public class ThirdController {
+
+//	@RequestMapping(value = "/student" , method = RequestMethod.GET)
+	@GetMapping("/student")
+	public ModelAndView getData() {
+		ModelAndView m1 = new ModelAndView("index");
+		m1.addObject("message", "Student data is Saved Succesfully");
+		return m1;
+	}
+}
+
+
+
+------------------------------------------
+
+cerate .jsp file in a new folders "WEB-INF> views Folder > .jsp files
+
+
+
+index.jsp
+----------
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index page</title>
+</head>
+<body>
+    <h1>${message}</h1>
+</body>
+</html>
+
+
+frontpage.jsp
+---------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>frontpage</title>
+</head>
+<body>
+
+    <h1>${text}</h1>
+    
+</body>
+</html>
+
+
+-------------------------------------------------
+
+Now Right click on TomCat server -> Click on option called "Add or Remove..."  -> and Add the Existing mvc web project into server -> Finsih 
+ 
+-------------------------------------------------
+
+Now open the web browser and -> use the below URL's to access the Applications 
+
+
+
+URL:   to access the application based on the Controller calsses end points
+-----
+
+http://localhost:8080/springwebmvc/controller1/one        // controller 1  > method  1 
+
+http://localhost:8080/springwebmvc/controller1/two         // controller 1  > method  2 
+
+http://localhost:8080/springwebmvc/controller2/getText      // controller 2  > method  1 
+
+http://localhost:8080/springwebmvc/controller2/getCollege   // controller 2  > method  2
+
+http://localhost:8080/springwebmvc/controller2/getBranch    // controller 2  > method  3 
+	
+http://localhost:8080/springwebmvc/controller3/student	    // controller 3 > method 1
+
+
+
+
+---------------------------------------------------------------------
+
+Till now we configured using XML based configuration using   distathcer-servlet.xml -> [Both components scan and Internal view resolver]
+
+
+Now Comment all the dispather-servlet.xml code and try with Java configuration as below ...... 
+
+
+
+FOR JAVA CONFIGURATION :
+------------------------
+
+
+package springwebmvc.java.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@EnableWebMvc
+@ComponentScan(basePackages = "springwebmvc.java.controllers")
+@Configuration
+public class JavaConfig {
+
+	 @Bean
+	    public InternalResourceViewResolver viewResolver() {
+	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	        resolver.setPrefix("/WEB-INF/views/");
+	        resolver.setSuffix(".jsp");
+	        return resolver;
+	    }
+}
+
+
+
+--
+
+Note:
+------
+add the following in web.xml to enable the configuration java features 
+
+inlcude the following meta data between ->     <servlet-class ..... / >   and  <load-on-startup...../>
+
+
+````````````add this 
+
+    <init-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>springmvc.com.config.WebConfig</param-value> <!-- Your Java config class -->
+    </init-param>
+
+
+run and test the application in web browser using tomcat server
+
+
+
+URI:
+-----
+
+http://localhost:8080/springwebmvc/controller1/one        // controller 1  > method  1 
+
+http://localhost:8080/springwebmvc/controller1/two         // controller 1  > method  2 
+
+http://localhost:8080/springwebmvc/controller2/getText      // controller 2  > method  1 
+
+http://localhost:8080/springwebmvc/controller2/getCollege   // controller 2  > method  2
+
+http://localhost:8080/springwebmvc/controller2/getBranch    // controller 2  > method  3 
+
+http://localhost:8080/springwebmvc/controller3/student    // controller 3  > method  1 
+
+
+=========================================================================================
+
+
+
+NOte : 
+=====
+
+-> .xml files issues -> force download [move cursor at the error red line and > select force download ]
+-> Still isses are not resolved ->  GO TO WINDOWS on top option in STS > Preferences   >   Maven  > Enable -- Downlaod artifact sources  > Apply close . 
+
+-> On top Select Option called PROJECT >  Update Maven project   >  Enable  Offline & ForceUpdate Options >  Ok
+
+-> Right click on yout project >   Run as -> Mvn Clean 
+-> Rigth Click on your project > Maven > Downlaod source > 
+
+Sts close and open once it stll issues are there .

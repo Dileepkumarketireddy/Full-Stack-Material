@@ -1,0 +1,476 @@
+
+Server port  :
+=============
+
+By default the spring boot application run on 8080 port number
+
+-> we can customize the port number using the file called application.properties
+
+   => server.port  =  8090 
+
+-> On one port number only one application can run  , if multiple application trying to run the common port number we will get the error like..
+
+ ex ->  8080 is already in use , use different port number.
+
+
+
+--------------------------
+What is an Context- path
+--------------------------
+
+
+-> Context - path represents the name of our application.[Url name of application]
+
+-> in spring boot the default application context path Is EMPTY.
+
+-> we can assign local name of the application by using the below property and add this inside the appication.properties
+
+	==>  spring.application.name= "Its just a local name" 	
+		
+
+			// default local name at the time of project creation, this was present in application.properties
+
+	EX : for Logging , Monitoring , for Service Registry [register one service with another in micro services]
+
+
+-> in spring boot we can set our application context path in our application.properties file
+
+
+	==> server.servlet.context-path = // Prefix of URL                 // metioning a user defind application context name 
+
+	Ex : URL Prefix: It is the initial part of the URL used to access resources within the application.
+	     Application Identifier: It serves as a unique identifier for a web application 
+
+-> when we set context path we have to access our application by using the below url
+	
+	URL: http://localhost:8081/contextname[ApplicationName]/api/greet
+
+
+Note :
+
+-> If the server.servlet.context-path property is not explicitly defined in a Spring Boot application's configuration (e.g., application.properties or application.yml), the default context path is / (a single forward slash).
+
+
+-> This means that your application will be accessible directly at the root of your server's address and port, for example, 
+
+		http://localhost:8080/...... 
+
+-> If you were to define server.servlet.context-path=/my-app, 
+
+-> then your application would be accessible at 
+
+		http://localhost:8080/my-app/........
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+MVC  ->   ModelAndView   or   Model    // by using these we are sending data from 
+					 Controller to the UI
+
+  Note :  these both are using view page to show the data by rendering to UI
+
+	
+
+
+
+	@RequestMapping(value = "/one", method = RequestMethod.GET)
+	public ModelAndView welcome() {
+		ModelAndView m = new ModelAndView("index");
+		m.addObject("message", "DATA transfered through Model AND VIEW");
+		return m;
+	}
+	
+	
+	@RequestMapping(value = "/two", method = RequestMethod.GET)
+	public String welcome(Model model) {
+		model.addAttribute("message", "DATA transfered through Model AND VIEW");
+		return "index"
+
+	}
+
+
+
+
+
+@ResposeBody
+
+
+
+
+
+Sending the data from the Controller to the Ui  aswell as UI to controller
+
+                                             
+		UI   < ---------------------------------------   CONTROLLER    
+		     ----------------------------------------->                                                                                                                                                                                                                                                                         ----------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                                                      
+Sending the data from the CONTROLLER to UI   : 
+===========================================   
+
+-> we can send the data from the controller to the UI multiple ways
+
+
+1) ModelAndView   
+		 -> returns Both Model and view [view page to render the Model/data]
+
+2) Model 	 
+		-> returns view page <-  Model data[view page to render the Model/data]
+
+3) @ResponseBody   alternative is -> [@RestController]
+
+
+--------------------------------------------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                   
+1) ModelAndView  :
+==================                                                                                                                                                                                                                                                                                                                                       
+	@RequestMapping(value = "/one", method = RequestMethod.GET)
+	public ModelAndView welcome() {
+
+		ModelAndView mdl = new ModelAndView();					//creating object for the modelAndView 
+
+		mdl.addObject("message", "Data transferd through MODEL AND VIEW ");	// adding the model data usign object referance
+		mdl.setViewName("hello");						// setting the view name usign objecy referance
+
+		return mdl;								// retunrning the ModelAndView object to the UI as a response
+
+	}                                                                                                                                                                                                                                                                                                                     
+ 2) Model :-
+============
+
+	@RequestMapping(value = "/two", method = RequestMethod.GET)
+	public String greet(Model model) {
+
+		model.addAttribute("message", "GREETING FROM SPRING DATA JPA");
+
+		return "hello";
+	}
+
+Note:  both the ModelAndView and model types are used for mvc based applications. 
+-----
+                                                                                                                                                          
+3) @ResponseBody :
+=====================     
+
+-> The @ResponseBody annotation in Spring is used to indicate that the return value of a method should be written directly to the HTTP response body.
+
+-> This is commonly used in RESTful web services where the method returns data, usually in JSON or XML format.
+
+-> If you are using @Controller then it mandatory to use @ResponseBody 
+      
+	@Controller class needs @ResponseBody annotaion for all the methodes to return the data .
+
+	-> @CONTROLLER +  @RESPONSEBODY  
+
+
+
+-> If you are usign @RestController than its optional to use @ResponseBody.
+
+Note :- why because  @RestController =  @Cotroller + @ResponseBody
+
+-> @RestController: This annotation ensures that the return values of all methods are automatically written to the HTTP response body.
+
+-> In this case, you don’t need @ResponseBody because @RestController takes care of it for you.
+
+NOTE 1
+=====
+
+                      Old way to map the requests			   New way 
+		=======================================                ==================
+	@RequestMapping(value = "/", method = RequestMethod.GET)  ->  @GetMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.PUT)  ->  @PutMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.POST) ->  @PostMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.DELETE)-> @DeleteMapping("/")
+
+
+NOTE2
+======
+
+		 Old way				   New way
+		===========			         ============
+
+	@Controller   +  @ ResposeBody                  @RestController
+
+
+
+
+
+
+
+
+===Example with @ResponseBody===
+----------------------------------
+
+1) using only @Controller-> 
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@Controller
+public class MyController {
+
+    @GetMapping("/greet")
+    @ResponseBody							// Mandatory to use @ResponseBody to write the return value directly to http methods
+    public String greet() {
+        return "Hello, welcome to Spring Boot!";
+    }
+}
+
+2) using with @RestController [ in this case optional to use @ResponseBody ] -> 
+
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@Controller
+public class MyController {
+
+    @GetMapping("/greet")
+    @ResponseBody							// Optional to use @ResponseBody to write the return value directly to http methods
+    public String greet() {
+        return "Hello, welcome to Spring Boot and Spring Data Jpa!";
+    }
+}
+
+
+=====Example with out @ResponseBody=====
+------------------------------------------
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+    @GetMapping("/greet")
+    public String greet() {
+        return "Hello, welcome to Spring Boot!";
+    }
+}
+
+
+=====================================================================================================================================                                                                                                                                                                                                           Sending data from the UI to the Controller:   
+=============================================
+
+There are 3 ways to send the data from the UI to Controller:   [ Extract the values form the URL path ] 
+
+1) Query params
+
+2) Path params
+
+3) Request Body
+
+ 
+1) Query params : 
+================
+
+-> It will represent the data in the form of KEY and VALUE pair
+
+->  Request URL from web browser    ex:       https://www.youtube.com/watch?v=z5fzj_a4XIA 
+
+
+ URL ->  https://www.youtube.com/watch     ------> this is called URL
+ 
+-> v = z5fzj_a4XIA 
+
+-> here "V" -> is the KEY
+-> here "z5fzj_a4XIA " -> is the value
+
+=> Query params represents data in the form of KEY and values 
+=> these Query params will present only at the end of the URL 
+=> Query params will always start with '?'
+
+Note: To read parameters from the URL we are going to use "@RequestParam" annotation in the API methode.
+
+ex code:
+--------
+
+@RestController
+@RequestMapping("/api")
+public class BooksController {
+
+	@GetMapping("/validate")
+	public String validateData(@RequestParam("moviename") String name,) {
+
+		String prod = null;
+
+		if (name.equals("superman")) {
+			prod = "movie produced by DC film makers";
+		} else if (name.equals("ironman")) {
+			prod = "this moview produced by MARVEL film makers";
+		} else {
+			prod = "please enter the moview wither from DC or Marvel";
+		}
+	
+		return prod;
+	}
+
+
+Request URL :  http://localhost:8081/datajpa/api/validate?moviename=superman
+
+Aplication/base URL :  http://localhost:8081/datajpa/api/validate
+
+Key and values : Key -> moviename   value -> supermanan
+
+
+-> we can give multiple Query params in the url for that we can use '&' as a differentiator or separator for query params
+
+
+ex: code
+--------
+
+	@GetMapping("/validate")
+	public String validateData(@RequestParam("moviename") String name,
+			@RequestParam("moviename") String director) {
+
+		// code logic here
+
+	}
+
+URL to access :     http://localhost:8081/datajpa/api/validate?moviename=superman&moviename=zacksynder
+
+-------------------------------------------------------------------------------------
+
+
+2) Path params
+===============
+
+-> one more approach to send the data from UI to controller through the server url
+-> we can read the from the url by using an annotation called @PathVarible
+-> we can represent the data directly in the url with out any key and value pairs
+	there is no key concept only value we are going to mention in the url
+-> the place holder of the path variables in the url any where .
+
+
+place holder :	{value}
+
+url : /path/{value}    -- valid
+url : /path/{value}/params/jpa/spring/mgm.   -valid 
+
+
+
+Code:
+------
+
+@RestController
+@RequestMapping("/api")
+public class BooksController {
+	
+	@GetMapping("/path/{value}/params/jpa/spring/mgm")
+	public String validatePathParams(@PathVariable("value") Integer amount) {
+		
+		String s = null;
+		
+		if(amount == 100) {
+			s = " you got a coupon worth 100 rupees for chicken biryani ";
+		} else {
+			s = "there is no free coupons are available right now";
+		}
+		
+		return s;		
+	}
+}
+
+
+URL to access application:   http://localhost:8081/datajpa/api/path/108890/params/jpa/spring/mgm
+
+108890 - is my path variable place holder
+
+
+
+-> We can have multiple path variables in single URL 
+
+CODE:
+
+@RestController
+@RequestMapping("/api")
+public class BooksController {
+	
+	@GetMapping("/path/{value}/{name}")
+	public String validatePathParams(@PathVariable("value") Integer amount, @PathVariable("name") String name) {
+		
+		// logic	
+	}
+}
+
+NOTE :
+------
+Q) use of @PathParam in spring based application 
+
+-> In Spring Boot, you should use @PathVariable instead of @PathParam. The functionality is the same, but @PathParam is specific to JAX-RS, whereas Spring uses    @PathVariable to map path parameters to method parameters.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3) RequestBody
+=================
+
+-> In a Spring Boot application, the @RequestBody annotation is used to bind the HTTP request body to a method parameter.
+-> This is commonly used when handling POST, PUT, or PATCH requests, where the client sends data in the body of the request, often in JSON format.
+
+-> When you use @RequestBody, Spring automatically deserializes the incoming JSON (or other formats) into a Java object.
+
+Ex: 
+
+@RestController
+@RequestMapping("/api")
+public class BooksController {
+	
+	@Autowired
+	public BooksService booksService;
+	
+	@PostMapping("/books")
+	public Books saveData(@RequestBody Books books) {			//from the UI you can send the data in the form of JSON
+		
+		return booksService.saveBooksDetails(books);
+		
+	}
+
+
+===============================================================================================================================================================
+
+
+
+EEE -> 2   - DONE  
+MECH -> 1  - DONE
+
+
+         	Batches
+		-------
+
+AI & DS -> 8    -> 2 -> 5*2  [4 ai + 1 ee] , [ 4 ai + 1 ee + 1 mech]
+ 	
+ECE     -> 18	-> 4 -> 5*2  , 4*2                                        - 4 projects
+IT      -> 16	-> 3 -> 5*2  , 6*1						
+CSE-> A -> 16   -> 3 -> 5*2  , 6*1
+   -> B -> 4 	-> 1 -> 4 + 3 [CSE C section ]
+
+   -> C -> 3 DONE 
+
+
+Total -> 13 batches.            
+
+total projects -> 4  
+
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+

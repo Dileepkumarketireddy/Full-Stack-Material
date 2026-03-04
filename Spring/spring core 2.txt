@@ -1,0 +1,183 @@
+
+
+-> Even though we used Interface approach to make the classes loosiely coupled , but some how the other classes still tightly coupled.
+
+-> If we dont use Spring frame work the classes become tightly coupled at any point.
+
+-> because as a developer or the user we need to create the objects/instances for the classes.
+
+-> if the applicatoin become complex [some big/large applications] -> The projects contais 100's or 1000's of classes so its very difficult to creating and managing the objects among the classes.
+
+-> so we can take the help of Spring core module [especially IOC container ] to create and manage the objects/instances/dependancies among the classes.
+
+
+Note :  We are not going to create the objects for the classes manually. we are giving our task to IOC container.
+
+==============
+IOC Container:
+==============
+
+IOC -> stands for -> INVERSION OF CONTROL
+
+-> which means -> Inverting/flips the Control of creating and managing the objects from the user to the Container.
+
+-> This IOC container dont know for what classes it need's to create and manages the objects.
+
+-> So we need to inform what are 
+		- the target classes
+		- the dependant classes
+
+-> Before Running the application only we need to inform about the classes to the IOC container.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Beans:
+------
+
+->Java classes which are managed by spring IOC container ,is called as spring bean classes.
+
+-> java classes in spring project also called as "spring bean classes", or "spring managed beans" , "beans".
+
+Types of Bean Configurations : 
+------------------------------
+
+1) XML configuration
+2) Java configuration
+3) Annotation based configuration
+
+-----------------------------------------------------------------------------------
+
+Create Normal MAVEN Project 
+===========================
+
+
+-> Create Maven project 
+
+-> in the created project ADD -> Spring Cotext dependency in POM.xml file
+
+
+-> go to the option ->   File > New > Maven project -> give group id  & Artifact id >  Create Project
+
+-> in the POM.xml = Spring Cotext dependency
+
+	copy from ->  https://mvnrepository.com/
+
+-> Spring context ->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>7.0.0-M9</version>
+		</dependency>
+
+-> Create the Classes
+
+	1)Payment interface
+	
+	2)DebitCard class
+	3)CreditCard class
+	4)Upi class
+
+	5)Payment Collector
+
+-> Now -> Inform the IOC container about what are Dependant and Target classes
+
+	-> for this create one .xml file because we are using XML configuration for now.
+
+-> Config.xml file
+------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    
+    <!-- dependant classes-->
+    
+    <bean id="debit" class="gmrit.java.payments.implementations.DebitCard" />
+    <bean id="credit" class="gmrit.java.payments.implementations.CreditCard" />
+    <bean id="upi" class="gmrit.java.payments.implementations.Upi" />
+    
+    <!-- target class-->
+    
+    <bean id="collector" class="gmrit.java.payments.PaymentCollector">
+		
+		<property name="payment"  ref="credit"> </property>
+		
+	</bean>
+
+</beans>
+
+
+Test Class:
+===========
+
+package gmrit.java.payments.Test;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import gmrit.java.payments.PaymentCollector;
+import gmrit.java.payments.implementations.CreditCard;
+import gmrit.java.payments.implementations.DebitCard;
+import gmrit.java.payments.implementations.Upi;
+
+public class Test {
+
+	public static void main(String[] args) {
+
+//		PaymentCollector p1 = new PaymentCollector();
+//		p1.setPayment(new Upi());
+//		p1.collectPayment(1620);
+//
+//		PaymentCollector p2 = new PaymentCollector(new CreditCard());
+//		p2.collectPayment(89666);
+//
+//		PaymentCollector p3 = new PaymentCollector();
+//		p3.payment = new DebitCard();
+//		p3.collectPayment(9999);
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");     // Creating IOC container
+		PaymentCollector p1 = context.getBean("collector", PaymentCollector.class);
+			p1.collectPayment(2500);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

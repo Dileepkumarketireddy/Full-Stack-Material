@@ -1,0 +1,462 @@
+Discussed Annotations so far
+----------------------------
+@Configuration
+@Bean
+@Component
+@ComponentScan
+@Autowired
+@Qualify
+@Primary
+@Scope
+@Controller
+@RestController
+@Service
+@Repository
+@EnableWebMVC
+@RequestMapping
+@GetMapping[Post, Put, Delete]
+,,,.................
+
+
+-------------------------------------------------------------------------------
+
+What are the steps to develop spring web mvc application:
+---------------------------------------------------------
+
+1) creating mvc project using maven project
+2) in the pom.xml adding the required dependencies
+
+	-> spring web 
+	-> spring web-mvc
+        -> spring core , cotext
+	-> servlet api's
+	-> javax servelts,
+	-> tomcat server,...
+	-> And,,,......
+
+3)  creating a web.xml
+4)  and dispatcher servlet.xml
+5)  Configuring the Dispatcher servlet and internal view resolver and webServletContainer 
+6) Installing tomcat server and added to the application
+7) creating a controller class 
+8) providing a request mapping with some end points.
+......
+
+
+from 1 to 6 points all are common steps to develop the any spring application / java project
+
+this is called as "BOILER PLAET CODE".
+
+over the period of spring frame work developing the projects based on this boiler plate code.
+
+
+---------------------------------------------------------------------------------------------
+
+Mian objective of spring boot:
+================================
+
+1) Spring framework came to simplifies the J2EE applications development.
+2) Spring boot came to simplifies the spring framework based application development.
+
+----------------------------------------------------------------------------------------------
+
+Drawbacks of spring Application Development:
+---------------------------------------------
+
+	1) There is a lot of manual configuration while developing the spring mvc application
+
+		-> XML configuration  [ .xml file, using bean<> , and property<>, and constructor-args<> , factory..<> ...] , create an IOCcontainer
+
+		-> Java configuration [ class with @Configuration , @bean .... ] 
+
+		-> Java configuration  with Annotation configuration  - @component , @Configuration , @ComponentScan(basepackages:"com.demo.mvc"), @Autowired ] 
+			
+
+		 POM -> Project object model
+	 	 xml -> Extensible markup language
+
+	2) this java based configuration not applicable for frame work related classes
+	 	
+		-> only used for " User defined classes" whicha are created by the developer/user manually but not for the frame work related predefined classes .
+
+	ex: frame work related classes : Jdbc templete , Redis templete, Datasource class ..
+	
+	3) Dependencies management was tooooo difficult.
+
+-> so which version of dependency going to compatible with what version find out is hard.
+
+	4) These is no internal servers are availble in the spring frame work.
+
+	5) There is no internal data base in the spring frame work.	
+
+	-> COMPLEXITY 
+	-> TIME COSUMING 
+
+-------------------------------------------------------------------------------------------
+
+To overcome all the above issues spring frame work introduced a special module called "Spring Boot" ...
+
+-> It's not the replacement of sprig frame work , Spring boot is just one of the module or a feature in the entire spring frame work.
+
+-> So what even the applications we can develop by using spring frame work , the same applications we can develop by using SPRING BOOT
+
+-> So we can develop end to end applications by using Spring boot 
+
+-> The types of application we can develop is
+
+	1) Stand-alone applications 
+	2) Web - applications
+	3) Distributed applications
+
+-> so spring boot aim to develop the spirng based projects in a easy and production ready applications.
+
+-----------------------------------------------------------------------------------------------
+
+
+Versions:
+---------
+
+Spring versin is different from a spring boot version
+
+-> spring was introduced in the year of 2004.
+
+-> The lastest/ current version of spring version -> 6.2.X...
+
+-> current / latest version of spring boot is -> 3.5.x..
+
+but the Industry using spring boot version is  -> 2.5 < ??  > below 3.
+
+
+------------------------------------------------------------------------------------------------
+Maven Build Tool related questions -> 
+
+What is Maven and its uses??
+what is local and central repository?
+where all the downloaded jar's present ?
+or what is .m2 folder ?
+
+-> Based on the dependecncies present in POM.xml the Maven build tool download all the required jars files or libraries in the local   C drive \ Users\pc\.m2 Folder \ repository>.jar files.
+
+-> So any application to build before Maven search or look for the required jars file present in the Local Repository or not ...........
+
+-> If Maven found them it will re use them IF they can't find maven download the required jars from the Central repository [Directly from the browsr/Cloud > MVN repository]
+
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+
+SPRING BOOT - FEATURES :     // Advantages of the spring boot
+========================
+
+1) Dependencies managment is easy - with the help of POM starters.
+	
+	POM starters : 
+	-------------
+	a) starter - parent
+	b) starter - <feature>     ex -> starter - <spring-web>  -> 
+
+2) Auto configiration
+
+3) Embedded Sever.
+
+4) Spring boot - DevTools.
+
+5) Spring boot - accuators.
+
+6) developing applications by avoided xml things.
+
+7) embedded data base
+
+.............
+
+-----------------------------------------------------------------------------------------------
+
+1) Dependency management :
+ -------------------------
+
+ -> Spring boot introduced a concept called " spring - boot - starter " concept.
+
+	1) Spring-boot-starter-Parent
+	2) Spring-boot-starter-<Feature>  
+		
+	features ex: web, jdbc, Jpa, .....................
+	
+-> Every application interact or configred with 3 rd party libraries. which is going to taken care by parent property
+
+->  and it is responsible to avoid the version campatiblity isseus among the multiple dependency versions.
+
+-> PARENT - is going to take the requierd 3rd party libraries for the project development 
+	  - and handle the version compatabilities issues 
+
+-> FEATURE - Instead of add individual dependencies in a pom file, directly we can use starer-FEATURE dependency to get the required dependencies for the project development.
+
+ 		spirng - web 
+		spring - context 
+		spring - core			===========> spring- boot - starter - WEB           // FEATURE DEPENDENCY
+		spring - webmvc
+		spirng -jackson.....
+
+
+2) Auto Configuration :
+ ----------------------
+
+Configuration means we are configuring the spring beans either in xml , java configuration or autowiring with component.
+
+Auto configuration means - the configuration part in my spring boot application was automated with the help of
+			     @SpringBootApplication
+
+-> Because of some draw backs in xml configuration we moved into Java configuration
+-> due to some draw back in java configuration with @Configuration and @Bean .
+-> in the java configuration we used @Autowired and @component and @componentScan [package or class level].
+
+3) Embedded Sever:
+-------------------
+
+-> When a server is present or available in side the application than we call it as " Embedded server"
+-> spring boot is providing internal servers [ embedded servers ].
+	
+	ex: Tomcat [ default ] 
+	    netty
+	    jetty 
+
+4) Spring boot - DevTools :
+--------------------------
+
+-> This devtools is going to improve the developer / programmer efficiency.
+
+-> when ever the developer changes any thing inside the code than this dev tools automatically perform " re-compile" ,generate the jar and re-run the application , or deploy the application in server.
+
+	note : we need to add spring-boot-devtools dependency in pom.xml.
+
+5) Spring boot - accuators :
+----------------------------
+
+-> Accuators deals with the non- functional requirement of the spring boot application
+-> add the spring-boot-accuators dependency in pom.xml than we can ablet to active the accuators in spring boot application
+
+-> So it going to take care of managing and monitoring application 
+	
+	> How many classes loaded
+	> Thread [ created, active , running ....]
+	> beans  [how may bean are created ..]
+	> health [ to check health of application]
+	> metrics ......
+	> info
+
+
+
+-> we can access accutors  by HTTP URL end points.
+	
+	ex: localhost:8761/spirngboot/controller/form/accuators/info.
+
+Ways to develop spring boot project:
+====================================
+
+
+1) using Eclips , Intellij
+2) https://start.spring.io/    [Spring Initializr.io]
+3) STS [ spring tool suit ].
+
+
+
+1) using Eclips : -> Create a mvn project and add manually all required dependencies in pom.xml
+		 
+
+2) https://start.spring.io/ :
+
+-> access the url from the browser and fill the required details for our project requirements
+-> than a zip file is going to downlaod
+-> we can extract the zip file -> goto IDE -> FILE > import > maven > existing maven > open the 
+	file explorer -> select the path till pom.xml appears> finish
+
+3) STS ide:
+
+-> open sts ide > file > new > spring starter project > 
+-> STS also internally using the same url "https://start.spring.io" to create a boot project
+-> fill the required details for our project requirements
+-> add the dependencies and click finish .
+
+Note:  while creating project using sts ide internet is mandatory.
+
+https://start.spring.io/starter.zip?name=spring-BOOT-01&groupId=com.boot&artifactId=spring-BOOT-01&version=0.0.1-SNAPSHOT&description=SPRING+BOOT&packageName=demo.boot&type=maven-project&packaging=jar&javaVersion=17&language=java&bootVersion=3.3.5
+
+===============================================================================================
+
+Project srructure / proejct architecture of spring boot:
+--------------------------------------------------------
+
+	|- Project name 
+		
+		|- src/ main / java
+
+			|- com.example.. packages
+				|- application.java 
+				|- multiple classes .....
+		|- src / main/ resources
+			
+			| - application.properties 
+	
+		|- src / test/ java
+			
+			|- test.java files
+
+		|- mavaen dependencies and libraries
+
+		|- POM.xml
+
+
+-> src/main/java   == it contains our sorce code my application [ java code ]
+-> src/main/resources == configuration related files
+-> src/test/java == it contains the junit test classes will be available 
+
+=======================================
+start class in spring boot application:
+========================================
+
+-> at the time of spring boot project creation it is going to provide a class that contains a main methdod.
+-> that is called as start class of spring boot application
+-> it is the entry point while running the application
+
+ ex: SpringBootApplication.java
+
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+
+@SpringBootApplication
+public class SpringBootApplication {
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(SpringBootApplication.class, args);
+
+	}
+
+}
+
+
+
+SpringApplication.run();
+---------------------------
+
+-> is start the stop watch
+-> set up the environment
+-> intialize the starters and listers
+-> choose the IOC container based on pom dependencies
+-> create the IOC container
+-> print the default BANNER of spring BOOT application
+-> refreseh the container
+-> stop the stop watch
+-> call runners
+-> give the time taken to run the applciation......
+
+
+@SpringBootApplication :
+========================
+
+@SpringBootConfiguration   //replacement of @Configuration
+@EnableAutoConfiguration
+@ComponentScan
+
+
+@SpringBootConfiguration:
+=========================
+
+-> Prevoulsy we used @Configuration to declare class as a configuration class
+-> Its just a naming converntion adde for the differentiation
+
+
+@ComponentScan:
+===================
+
+-> to scan the sprin bean classes which are declared with @component or other sterio type annotations @service .....
+-> @ComponentScan is going to scan the classes [ either in package level / calss level ] 
+-> default is current package level
+
+
+	demo.mvc    // if we declare configuration class  inside this package it will scan all packages which comes as sub package	
+	demo.mvc.controller 
+	demo.mvc.dto
+	demo.mvc.helper
+	demo.mvc.repositrory
+	
+	demo.com.mvc   // NOO this package is not going to scan automatically .
+
+	ex: main package : demo.mvc
+	    sub packages : demo.mvc.controller
+			   demo.mvc.dto
+			   demo.mvc.helper
+			   demo.mvc.repositrory
+
+	    other defferrent package:  demo.com.mvc
+
+
+-> -> We can specify more than one base package also in our boot start class
+	
+	@ComponentScan (basePackages = { "demo.mvc" , "demo.com.mvc" })
+
+
+@EnableAutoConfiguration
+========================
+
+-> It enables the auto configuration for the frame work related classes
+-> identify the beans and perform the auto configuration in the spring boot application.
+
+
+==========================================================================================
+
+
+
+
+Spring Boot BANNER:
+====================
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+[32m :: Spring Boot :: [39m             [2m (v2.7.15)
+
+
+-> In spring boot application after running we can see a SPRING LOGO in the console that is called as "spring boot banner".
+
+-> we can customize spring banner by creating a new text file named "banner.txt" , in the resource folder or path [ src/main/resource ]
+
+-> so we can maintain a company name or the project name as a Banner in Spring boot application with text format.
+
+-> By default the banner name is "SPRING" 
+
+-> if we don't want to see the banner we can off the banner in the console using application.properties.
+
+
+	NOTE:
+	-----	
+			spring.main.banner-mode=   " ? "   // add type of mode here 
+modes:
+-----
+
+1) console  // by default it will take as console even though if we dont use
+2) off	   // it will stop the printing in the console
+3) log	   // print the banner in the log files
+
+After Customization :
+--------------------
+
+ ,----.   ,--.   ,--.,------. ,--.,--------. 
+'  .-./   |   `.'   ||  .--. '|  |'--.  .--' 
+|  | .---.|  |'.'|  ||  '--'.'|  |   |  |    
+'  '--'  ||  |   |  ||  |\  \ |  |   |  |    
+ `------' `--'   `--'`--' '--'`--'   `--'   
+------------------------------------------------------------------------------------------------------------------------------
+
+go in to this-> https://devops.datenkollektiv.de/banner.txt/index.html
+
+and enter your name ??
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

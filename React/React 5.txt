@@ -1,0 +1,541 @@
+
+Hooks :
+=======
+	
+-> Before hooks, only class components could use things React features. 
+
+-> Hooks make it possible to use these features in function components too.
+
+-> Hooks are special functions helps to use React features from your function components.
+
+Examples :
+--------
+
+like state, lifecycle methods, context , Effects....
+
+
+
+``````````````````Commonly Used Hooks
+
+Here are some of the most important hooks:
+
+
+Hook Name	What It Does							
+------------------------------------------------------------------------
+useState	Adds state to your function component				
+useEffect	Runs code when something changes (like lifecycle methods)	
+useContext	Lets you use context (global data) in your component
+
+
+````````````````What Is "State"
+
+
+-> In React, state is a data container that holds information about the component. 
+
+-> When the state changes, React automatically re-renders the component with the new data.
+
+Ex :
+
+-> the number in a counter, 
+-> the text in an input box, or the items in a shopping cart.
+
+---------------------------------------------------------------------------------
+
+
+-> useState( intialValue )    ->  is a predefined hook function
+
+-> It always returns an Array with the size of 2.
+
+-> Ex  :
+
+
+  var array = useState(0);  // return Array[2]  = [ 0 , fun() ]
+
+  var value = array[0];     // 0th index is a variable
+
+  var setvalue = array[1];  //1st index is a function to modify 0th index variable.
+
+
+``````````````Writing the 2 variables in a single line using Array Destructure.
+
+	
+  const [value , setvalue ] = useState(0);
+
+Note : we can use any scoping statement
+
+
+Example:   Create the Counter Component using usestate:
+--------------------------------------------------------
+
+import { useState } from 'react'
+
+
+function App() {
+
+ var [value , setvalue ] = useState(0);				//calling use state
+
+  function incrementValue() {
+     setvalue(value + 1);
+  }
+
+  return (
+    <>
+      <h1>APP/root Component</h1>
+      <hr />
+
+      <h1>Clicked {value} times </h1>
+
+      <button onClick={incrementValue}>Increment the count</button>
+    </>
+   );
+
+ }
+
+
+ex -> 
+	
+      <button onClick={incrementValue()}>Increment the count</button>  //Wrong way
+
+      <button onClick={incrementValue}>Increment the count</button>   //Correct way
+
+
+
+````````````Write call the function directly inside of onClick event.
+
+
+ex -> 	   <button onClick={()=>setvalue(value+1)}>Increment the count</button>
+
+
+Example with multiple usestatens inside functional component:
+------------------------------------------------------------------
+
+import { useState } from 'react'
+
+function App() {
+
+// for increment the count
+  const [value, setvalue] = useState(0)
+
+  console.log(value);
+
+// for college header change by one click 
+  const [name, setname] = useState('gmrit College');
+
+//for input text rendering
+  const [college, setcollege] = useState('');
+
+  return (
+    <>
+      <h1>APP/root Component</h1>
+      <hr />
+
+      <h1>Clicked {value} times </h1>
+
+      <button onClick={() => setvalue(value + 1)}>Increment the count</button>
+      <button onClick={() => setvalue(value - 1)}>Decrement count</button>
+      <button onClick={() => setvalue(0)}>Reset</button>
+
+      <hr />
+
+      <h1>College name is : {name}</h1>
+
+      <button onClick={() => setname('GMRIT deemed tobe UNIVERSITY')}> change name</button>
+
+      <br /><br />
+
+      <input type="text" onChange={i => setcollege(i.target.value)} />
+      <h1>Name of College : {college}</h1>
+
+	</>
+   )
+
+};
+
+
+---------------------------------------------------------------------------------------------
+
+````````````````````What is useState?
+
+-> In simple terms, useState lets you store and update values over time in a functional component. 
+
+-> or it adds state variables to a functional componenets.
+
+
+
+Syntax: 
+-------
+
+const [state, setState] = useState(initialValue);
+
+
+````Parameters:
+
+
+initialValue: 
+-------------
+
+-> The starting value of your state (can be any data type: number, string, object, array,etc.).
+
+
+````Returns:
+
+state: //variable
+-----
+
+-> The current value of the state.  //store the current value.
+
+
+setState():  // function
+----------
+
+->A function to update/modify the state variable When called, it re-renders the component with the new state value.
+
+
+```````````````````Example: Counter Component
+
+import { useState } from 'react'
+
+
+function App() {
+
+// for increment the count
+  const [count, setcount] = useState(0);
+
+ return (
+    <>
+
+      <h1>Clicked {count} times </h1>
+
+      <button onClick={() => setvalue(count + 1)}>Increment the count</button>
+
+	</>
+   )
+
+};
+
+
+
+````````````````Explanation:
+
+
+useState(0) initializes the state with the value 0.
+
+count holds the current state value.
+
+setCount is used to update the state.
+
+Clicking the button calls setCount(count + 1), which updates the state and causes the component to re-render.
+
+-> You update state using the setter function returned by useState. When you call this function, React updates the state and re-renders the component.
+
+
+------------------------------------------------------------------------------------------
+
+
+useEffect();
+============
+
+-> it's a predefined hook function used to provide some side effects while any actions performed by the functional components.
+
+-> actions can be anything not only the state changes with the help of useState();
+
+-> When any update or any changes or any re-render happens in a functional component we can use apply some side effect with the help react hook called -> 'useEffect()'.
+
+-> USEEFFECT() ->Always renders the data [the side effect it performs] 
+		
+		-> renders the data immediatly after component loaded
+
+
+
+
+Ex: 
+
+Fetch API , Use Aysnchronous TASKs, etc ..
+
+
+Syntax:
+-------
+1) case 1
+----------
+
+useEffect(
+
+// call back function ()
+
+);
+
+
+2) case 2
+----------
+
+useEffect( ()=>{
+
+	// LOGIC OF what effect need to perform by the useEffect();
+	
+
+} , dependency );
+
+	|
+	|
+	 -------->   // after call back function pass a condition /value[after comma (,)]
+
+
+what is dependency ??
+
+-> It's like a condition the useEffect() function will listens to it and apply the side effects
+
+-> condition -> pass in the format of  ->>>> ARRAY type with value
+
+-> dependency cases ??
+
+-> total there are 3 cases are there
+
+	1) No depenedency   ->  [it works like there is no useEffect() ] , renders the date for 				 every and any change happens in the component.
+	
+	2) Empty Array dependency   -> []  -> Only render once at the time of react app load
+
+	3) Array dependency with value  -> renders the data at the time of app load on browser
+					 and update or re-render based on the array dependancy
+
+------------------------------------------------------------------------------------------
+
+
+import React, { useEffect, useState } from "react";
+
+function UseEffct() {
+
+    const [count, setCount] = useState(5);
+
+    useEffect(() => {
+        // modify and update title name, when an componen changes.
+        document.title = `title update: ${count}`
+        console.log('titleupdated: ', count)
+
+    }, [count]);       				// we can give more  Array dependency values
+
+    return (
+        <>
+            <h1>Click {count} times</h1>
+            <button onClick={() => setCount(count + 1)}>Increment count</button>
+
+        </>
+    )
+}
+
+export default UseEffct;
+
+-----------------------------------------------------------------------------------------
+Note : In the above example we given array with dependency as -> [count] 
+
+-> if count variable modifies than useEffect will executute the logic again.
+-> if it is [] empty array dependancy -> use Effect won't executes its logic only it executes at the time of page load or component load on the web page.
+
+
+
+```````````````Using return statement is optional in useEffect(), 
+
+return statements executes first and then useEffect runs their logic after the return statement , but not at the time page loaded on the browser.
+
+
+useEffect with return () -> 
+
+    useEffect(() => {
+        // modify and update title name, when an componen changes.
+        document.title = `title update: ${count}`
+        console.log('titleupdated: ', count)
+        
+        return (() => {
+            console.log('return executed')
+        })
+    }, [count]); 
+
+-------------------------------------------------------------------------------------------
+
+
+Transfer the data or props amoung multiple components
+
+App -> Child1 comp -> Child2comp -> Child3 comp 
+
+-> What ever the user details available APP or Child componenet , the same details has to utilise in the child 3 components
+
+-> the only possible way of trnasfer the data from APP or Parent to the last Child is achieved by using PROPS with access then & transfer the properties for every component heirarichy.
+
+
+App component
+-----------------
+import Parent from './Components/Childone';
+
+function App() {
+
+return <Parent name='nokia' age='12'  course='cse'/>
+
+}
+
+Parent Componenet
+------------------
+
+import Child from "./Childtwo";
+
+function Parent({name, age, course}) {
+    return (
+        <>
+        <h2>Parent : {name}</h2>
+        <Child name={name}  age={age}  course={course}/>
+        </>
+    )
+}
+
+export default Parent;
+
+
+Child Component:
+---------------
+
+import React from "react";
+
+function Child(props) {
+    return (
+        <>
+        <h3>Child: {props.value}</h3>
+        </>
+    )
+}
+
+export default Child;
+
+
+
+--Note -> 
+
+if there are more components are present , its very difficult to transfer the properties from the super most parent to the super most child.
+
+-> In order to avoid that scenario we can use the hook function called "useContext"
+ 
+useContext :
+=============
+
+-> its hool function used to manage the global data
+
+Syntax:
+-------
+
+scopeStament  variable  = useContext();
+
+
+How to work with useContext:
+-----------------------------
+
+1) create the context
+2) provide the context
+3) use or consume or access the context
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Code :
+-----
+
+
+--> App component
+
+import Parent from './Components/Childone';
+import { createContext } from 'react';
+
+export const data = createContext();
+
+function App() {
+
+  return (
+    <>
+
+      <h1>App root</h1>
+
+      <data.Provider value='lenovo'>
+        <Parent />
+      </data.Provider>
+   
+    </>
+  )
+}
+
+export default App;
+
+
+
+------> Parent Component
+
+import React from "react";
+import Child from "./Childtwo";
+
+function Parent() {
+    return (
+        <>
+        <Child/>
+        </>
+    )
+}
+
+export default Parent;
+
+
+
+
+----------------> Child Component
+
+
+import React  , {useContext}from "react";
+import { data } from "../App";
+
+function Child() {
+
+   const result = useContext(data);
+   console.log(result);
+    return (
+        <>
+        <h3>Child name : {result}</h3>
+        </>
+    )
+}
+
+export default Child;
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
